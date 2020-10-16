@@ -3,17 +3,14 @@
   <body>
     <header>
   <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
-    <a class="navbar-brand" href="#">Carousel</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
+       
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" >Pedir turno</a>
+          <a class="nav-link" [routerLink]="['/PedirTurno']" routerLinkActive="router-link-active" >Pedir turno</a>
         </li>
       </ul>
       <form class="form-inline mt-2 mt-md-0">
@@ -32,7 +29,7 @@
       <div class="carousel-item active">
         <img src="./../../../assets/images/header.jpg" class="img-fluid" >
         <div class="container">
-          <div class="carousel-caption text-left">
+          <div class="carousel-caption text-center">
             <p style="color: black;">En Clínica Modelo UTN, una de las especialidades que nos distingue en es la investigación médica.</p>
             <h1 style="color: black;">Todo el cuidado de tu salud en un mismo lugar.</h1>
           </div>
@@ -111,7 +108,6 @@
 
   <!-- FOOTER -->
   <footer class="container">
-    <p class="float-right"><a href="#">Back to top</a></p>
-    <p>&copy; 2017-2020 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <p>Horario de atención:  Lunes a Viernes </p>
   </footer>
 </main>

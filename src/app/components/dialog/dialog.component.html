@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Reestablecer clave</h1>
+<div mat-dialog-content>
+    <mat-form-field mat-raised-button color="primary">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="email">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]>Cancelar</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="email" cdkFocusInitial>Ok</button>
+</div>

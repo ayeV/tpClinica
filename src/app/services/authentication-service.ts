@@ -56,6 +56,7 @@ export class AuthenticationService {
 
   // Returns true when user is looged in
   get isLoggedIn(): boolean {
+    
     this.getDataFromFirebase();
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null) ? true : false;
