@@ -1,0 +1,70 @@
+<body>
+
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card >
+            <mat-card-header>
+                <mat-card-title>Registrarse</mat-card-title>
+            </mat-card-header>
+
+            <form class="example-form">
+                <mat-radio-group aria-label="Seleccione un perfil" [(ngModel)]="user.role"
+                    (click)="setUserRole(user.role)" name="role" required>
+                    <mat-radio-button value="medico">Médico</mat-radio-button>
+                    <mat-radio-button value="paciente">Paciente</mat-radio-button>
+                </mat-radio-group>
+
+                <mat-card-content>
+                    <mat-form-field class="example-full-width">
+                        <input maxlength="30" type="email" matInput placeholder="Email" [(ngModel)]="user.email"
+                            name="email" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input maxlength="30" type="text" matInput placeholder="Nombre" [(ngModel)]="user.firstName"
+                            name="firstName" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input maxlength="30" type="text" matInput placeholder="Apellido" [(ngModel)]="user.lastName"
+                            name="lastName" required>
+                    </mat-form-field>
+
+
+
+                    <mat-form-field class="example-full-width">
+                        <input maxlength="15" type="password" matInput placeholder="Clave" [(ngModel)]="user.password"
+                            name="password" required>
+                    </mat-form-field>
+
+                    <div *ngIf="user.role == 'paciente'">
+                        <label for="exampleFormControlFile1">Foto 1</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" [(ngModel)]="user.photo1" name="photo1">
+    
+                        <label for="exampleFormControlFile1">Foto 2</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" [(ngModel)]="user.photo2" name="photo2">
+    
+                    </div>
+                   
+                    <mat-form-field appearance="fill" *ngIf="user.role == 'medico'">
+                        <mat-label>Especialidades</mat-label>
+                        <mat-select  multiple>
+                            <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad">
+                                {{especialidad}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+
+
+
+                </mat-card-content>
+
+                <button  mat-raised-button color="primary"  class="btn-block" (click)="Register()">Registrarse</button>
+                <button  mat-raised-button color="warn"  class="btn-block" (click)="Cancel()">Cancelar</button>
+
+            </form>
+        </mat-card>
+    </div>
+
+
+</body>

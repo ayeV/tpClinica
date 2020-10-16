@@ -1,0 +1,44 @@
+<body>
+  
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    
+      <mat-card class="box">
+        <mat-card-header>
+          <mat-card-title>Inicio de sesion</mat-card-title>
+        </mat-card-header>
+    
+        <form class="example-form">
+          <mat-card-content>
+            <mat-form-field class="example-full-width">
+              <input maxlength="30" matInput placeholder="Email" type="email" required [(ngModel)]="user.email" name="email">
+            </mat-form-field>
+    
+            <mat-form-field class="example-full-width">
+              <input maxlength="10" matInput placeholder="Clave" type="password" required [(ngModel)]="user.password" name="password">
+            </mat-form-field>
+          </mat-card-content>
+    
+          <div class="display-flex">
+    
+            <button mat-raised-button color="primary" (click)="Login()" class="btn-block">Ingresar</button>
+          </div>
+    
+          <div class="display-flex">
+    
+            <button  mat-raised-button color="warn"  (click)="FillInput()" class="btn-block">Usuario1</button>
+          </div> 
+    
+          <div class="display-flex">
+            <a [routerLink]="['/Registro']">Registrarse</a>
+    
+          </div>
+    
+    
+        </form>
+      </mat-card>
+    
+    </div>
+    
+    
+    </body>
+    
