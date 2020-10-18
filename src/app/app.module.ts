@@ -37,6 +37,9 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { TurnosComponent } from './components/turnos/turnos.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -73,7 +76,9 @@ import { TurnosComponent } from './components/turnos/turnos.component';
     MatCardModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
     FlexLayoutModule,
+    MatNativeDateModule, 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,

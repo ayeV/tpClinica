@@ -1,1 +1,67 @@
-<p>turnos works!</p>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+             
+              <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['']" routerLinkActive="router-link-active" >Volver al inicio</a>
+              </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+              <button class="btn btn-outline-danger my-2 my-sm-0" [routerLink]="['/Login']" routerLinkActive="router-link-active" >Salir</button>
+            </form>
+          </div>
+        </nav>
+      </header>
+      
+
+
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Solicitar turno</mat-card-title>
+            </mat-card-header>
+
+            <form class="example-form">
+
+                <mat-card-content>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Especialidad</mat-label>
+                        <mat-select (openedChange)="comboChange($event)" [formControl]="toppings">
+                            <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad">
+                                {{especialidad}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Fecha</mat-label>
+                        <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill">
+                        <mat-label>Horario</mat-label>
+                        <mat-select (openedChange)="comboChange($event)" [formControl]="toppings">
+                            <mat-option *ngFor="let horario of horarios" [value]="horario">
+                                {{horario}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+              
+                </mat-card-content>
+
+                <button mat-raised-button color="primary" class="btn-block" (click)="Confirm()">Confirmar</button>
+                <button mat-raised-button color="warn" class="btn-block" (click)="Cancel()">Cancelar</button>
+
+            </form>
+        </mat-card>
+    </div>
+
+
+</body>

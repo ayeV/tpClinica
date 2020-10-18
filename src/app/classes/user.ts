@@ -1,4 +1,3 @@
-import {Role} from './role';
 
 export class Usuario {
     public email :string;
@@ -8,4 +7,7 @@ export class Usuario {
     public photo1: string;
     public photo2: string;
     public role:string;
+    public specialities = [];
+
+
 }
