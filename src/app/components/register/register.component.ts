@@ -63,6 +63,7 @@ export class RegisterComponent implements OnInit {
     this.alertService.clear();
     if (this.user.email != null && this.user.password != null && this.user.role != null) {
       this.authService.RegisterUser(this.user.email, this.user.password).then((res) => {
+        this.authService.sendEmailVerification();
         this.router.navigate(['Login']);
         if (this.user.role == MEDICO) {
           this.user.photo1 = null;

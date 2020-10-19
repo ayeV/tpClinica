@@ -2,6 +2,11 @@
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
+
+.clase1{
+  margin-bottom: 5%;
+}
+
 body {
     padding-top: 3rem;
     padding-bottom: 3rem;

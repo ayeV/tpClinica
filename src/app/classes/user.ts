@@ -8,6 +8,7 @@ export class Usuario {
     public photo2: string;
     public role:string;
     public specialities = [];
+    public state = "not-verified";
 
 
 }

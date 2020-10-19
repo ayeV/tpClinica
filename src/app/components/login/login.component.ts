@@ -33,9 +33,17 @@ Login() {
 
   if (this.user.email != null && this.user.password != null) {
     this.authService.SignIn(this.user.email, this.user.password).then((res) => {
-      this.authService.getDataFromFirebase();
-      this.router.navigate(['']);
+      if(res.user.emailVerified)
+      {
+        this.router.navigate(['']);
+      }
+      else
+      {
+        this.alertService.error("Debes verificar tu email para poder iniciar sesión.");
+      }
+    
     }).catch((ex) => {
+      console.log(ex);
       this.errorMessage = this.ErrorMessageBuilder(ex.code);
       this.alertService.error(this.errorMessage);
 

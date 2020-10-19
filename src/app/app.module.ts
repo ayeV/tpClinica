@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +39,10 @@ import { HomeComponent } from './components/home/home.component';
 import { TurnosComponent } from './components/turnos/turnos.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MisTurnosComponent } from './components/mis-turnos/mis-turnos.component';
+import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import {ButtonModule} from 'primeng/button';
+import { AlertaComponent } from './components/alerta/alerta.component';
 
 
 @NgModule({
@@ -47,7 +51,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    TurnosComponent
+    TurnosComponent,
+    MisTurnosComponent,
+    EmailVerificationComponent,
+    AlertaComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +74,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatGridListModule,
     MatInputModule,
     MatFormFieldModule,
+    ButtonModule,
     MatSelectModule,
     MatRadioModule,
     MatChipsModule,
@@ -87,6 +95,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDialogModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
