@@ -43,7 +43,12 @@ import { MisTurnosComponent } from './components/mis-turnos/mis-turnos.component
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import {ButtonModule} from 'primeng/button';
 import { AlertaComponent } from './components/alerta/alerta.component';
-
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import {TableModule} from 'primeng/table';
+import { AltaAdminComponent } from './components/alta-admin/alta-admin.component';
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -54,9 +59,12 @@ import { AlertaComponent } from './components/alerta/alerta.component';
     TurnosComponent,
     MisTurnosComponent,
     EmailVerificationComponent,
-    AlertaComponent
+    AlertaComponent,
+    AdminUsersComponent,
+    AltaAdminComponent
   ],
   imports: [
+    TableModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -80,11 +88,13 @@ import { AlertaComponent } from './components/alerta/alerta.component';
     MatChipsModule,
     MatTooltipModule,
     HttpClientModule,
+    ToastModule,
     MatCheckboxModule,
     MatCardModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+    ProgressSpinnerModule,
     FlexLayoutModule,
     MatNativeDateModule, 
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -94,7 +104,7 @@ import { AlertaComponent } from './components/alerta/alerta.component';
     MatExpansionModule,
     MatDialogModule,
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

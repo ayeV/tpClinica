@@ -8,6 +8,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 
 const MEDICO = 'medico';
 const PACIENTE = 'paciente';
+const PENDIENTE = 'Pendiente';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
   public user = new Usuario();
   toppings = new FormControl();
   public especialidad: string;
-  public especialidades = ['Oftamologia', 'Cardiologia', 'Pediatria'];
+  public especialidades = ['Oftamología', 'Cardiología', 'Pediatría','Neumonología'];
   
 
   constructor(
@@ -63,9 +64,11 @@ export class RegisterComponent implements OnInit {
     this.alertService.clear();
     if (this.user.email != null && this.user.password != null && this.user.role != null) {
       this.authService.RegisterUser(this.user.email, this.user.password).then((res) => {
+        this.authService.getDataFromFirebase();
         this.authService.sendEmailVerification();
         this.router.navigate(['Login']);
         if (this.user.role == MEDICO) {
+          this.user.state = PENDIENTE;
           this.user.photo1 = null;
           this.user.photo2 = null;
           this.dbService.postUser(res.user.uid, this.user);

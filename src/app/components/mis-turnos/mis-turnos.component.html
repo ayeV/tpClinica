@@ -7,11 +7,11 @@
         <ul class="navbar-nav mr-auto">
          
           <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['']" routerLinkActive="router-link-active" >Volver al inicio</a>
+            <button pButton type="button" icon="pi pi-home" class="p-button-raised p-button-rounded" [routerLink]="['']" routerLinkActive="router-link-active" ></button>
           </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0">
-          <button class="btn btn-outline-danger my-2 my-sm-0" [routerLink]="['/Login']" routerLinkActive="router-link-active" >Salir</button>
+          <button pButton type="button" icon="pi pi-sign-out" class="p-button-raised p-button-rounded" (click)="logOut()" ></button>
         </form>
       </div>
     </nav>

@@ -5,6 +5,8 @@ import { AuthenticationService } from 'src/app/services/authentication-service';
 import { AlertService } from 'src/app/services/alertService';
 
 import {  Usuario } from './../../classes/user';
+import { isThisTypeNode } from 'typescript';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-login',
@@ -15,17 +17,18 @@ export class LoginComponent implements OnInit {
 
   public user= new Usuario();
   logeando = true;
+  public estaCargando = true;
+  public loggedUser;
   public errorMessage: string;
   constructor(  private route: ActivatedRoute,
     private router: Router,
     private alertService: AlertService,
     private authService: AuthenticationService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private db: FirestoreService) { }
 
   ngOnInit(): void {
   }
-
-
 
 
 Login() {
@@ -33,14 +36,27 @@ Login() {
 
   if (this.user.email != null && this.user.password != null) {
     this.authService.SignIn(this.user.email, this.user.password).then((res) => {
-      if(res.user.emailVerified)
-      {
-        this.router.navigate(['']);
-      }
-      else
-      {
-        this.alertService.error("Debes verificar tu email para poder iniciar sesión.");
-      }
+      this.db.getLoggedUser(this.authService.userLoggedIn.uid).subscribe((data)=>{
+        let user:any = data.payload.data();
+        if(user.role != 'admin')
+        {
+          if(this.authService.userLoggedIn.emailVerified)
+          {
+            this.router.navigate(['']);
+          }
+          else
+          {
+            this.alertService.error("Debes verificar tu email para poder iniciar sesión.");
+          }
+        }
+        else
+        {
+          this.router.navigate(['']);
+  
+        }
+      });
+
+     
     
     }).catch((ex) => {
       console.log(ex);

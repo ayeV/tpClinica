@@ -1,6 +1,7 @@
 
 
   <body>
+ 
     <header>
   <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,18 +11,26 @@
       <ul class="navbar-nav mr-auto">
        
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/PedirTurno']" routerLinkActive="router-link-active" >Pedir turno</a>
+          <a class="nav-link" [routerLink]="['/MisTurnos']" routerLinkActive="router-link-active" >Mis turnos</a>
+        </li>
+        <li class="nav-item" *ngIf="validarAdmin()">
+          <a class="nav-link" [routerLink]="['/AdminUsuarios']" routerLinkActive="router-link-active" >Administrar usuarios</a>
         </li>
       </ul>
+       
+      
       <form class="form-inline mt-2 mt-md-0">
-        <button class="btn btn-outline-danger my-2 my-sm-0" [routerLink]="['/Login']" routerLinkActive="router-link-active" >Salir</button>
+        <button pButton type="button" icon="pi pi-sign-out" class="p-button-raised p-button-rounded" (click)="logOut()" ></button>
       </form>
     </div>
   </nav>
 </header>
 
 <main role="main">
-
+  <!-- <div class="progress-spinner" [hidden]="!estaCargando">
+    <p-progressSpinner class="spinner">Por favor espere...</p-progressSpinner>
+  
+  </div> -->
   <div id="myCarousel"  data-ride="carousel">
   
     <div class="carousel-inner clase1">
@@ -29,8 +38,9 @@
         <img src="./../../../assets/images/header.jpg" class="img-fluid" >
         <div class="container">
           <div class="carousel-caption text-center">
-            <p style="color: black;">En Clínica Modelo UTN, una de las especialidades que nos distingue en es la investigación médica.</p>
+            <p style="color: black;">En Clínica OnLine, una de las especialidades que nos distingue es en la investigación médica.</p>
             <h1 style="color: black;">Todo el cuidado de tu salud en un mismo lugar.</h1>
+           
           </div>
         </div>
       </div>
@@ -66,7 +76,7 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading" [routerLink]="['/MisTurnos']" routerLinkActive="router-link-active" >Administra tus turnos de una manera fácil y rápida.</h2>
+        <h2 class="featurette-heading" [routerLink]="['/PedirTurno']" routerLinkActive="router-link-active"  class="class2" >Administra tus turnos de una manera fácil y rápida.</h2>
       </div>
       <div class="col-md-5">
         <img src="./../../../assets/images/turnos.jpg" class="img-rounded" style="width: 100%;height: 100%;">
@@ -76,29 +86,7 @@
 
     <hr class="featurette-divider">
 
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-      </div>
-      <div class="col-md-5 order-md-1">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-      </div>
-    </div>
 
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-      </div>
-      <div class="col-md-5">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
 
     <!-- /END THE FEATURETTES -->
 
@@ -107,6 +95,7 @@
 
   <!-- FOOTER -->
   <footer class="container">
-    <p>Horario de atención:  Lunes a Viernes </p>
+    <h2 style="color: black;">Horarios de atencion: Lunes a Viernes de 8:00 a 19:00.
+      Sábados de 8:00 a 14:00</h2>
   </footer>
 </main>

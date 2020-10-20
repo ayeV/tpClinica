@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
+import { AuthenticationService } from 'src/app/services/authentication-service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
@@ -39,7 +41,7 @@ export class MisTurnosComponent implements OnInit {
   public displayedColumns: string[] = ['Paciente', 'Medico', 'Estado','Acciones'];
   public cols: any[];
 
-  constructor(private db: FirestoreService) { 
+  constructor(private db: FirestoreService,private authService:AuthenticationService, private router:Router) { 
 
   }
 
@@ -69,6 +71,16 @@ export class MisTurnosComponent implements OnInit {
     
   ];
     this.cols = [{ field: 'paciente', header: 'Paciente'},{ field: 'medico', header: 'Medico'}, { field: 'estado', header: 'Estado'}]
+
+  }
+
+  logOut() {
+    this.authService.SignOut().then((res) => {
+      this.router.navigate(['/Login']);
+    }).catch((ex) => {
+      console.log(ex);
+
+    });
 
   }
 

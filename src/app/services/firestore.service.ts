@@ -4,6 +4,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Usuario } from '../classes/user';
 import * as firebase from 'firebase';
 import { AuthenticationService } from './authentication-service';
+import { useAnimation } from '@angular/animations';
 
 
 @Injectable({
@@ -30,7 +31,8 @@ export class FirestoreService {
       specialities:user.specialities,
       photo1:null,
       photo2:null,
-      role:user.role
+      role:user.role,
+      state: user.state
 
     })
       .then(function () {
@@ -64,12 +66,23 @@ export class FirestoreService {
     },{merge: true});
   }
 
+  updateState(id,state)
+  {
+    return this.db.collection('users').doc(id).set({
+      state: state,
+    },{merge: true});
+  }
+
 
 
   
   getUsuarios() {
    return this.db.collection("users").get();
 
+  }
+
+  getLoggedUser(uid){
+    return this.db.collection("users").doc(uid).snapshotChanges();
   }
 
 

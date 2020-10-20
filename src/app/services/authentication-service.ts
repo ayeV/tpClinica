@@ -26,6 +26,11 @@ export class AuthenticationService {
      (await this.ngFireAuth.currentUser).sendEmailVerification();
 }
 
+get userLoggedIn() {
+  return JSON.parse(localStorage.getItem('user'));
+}
+
+
   getDataFromFirebase(){
     this.ngFireAuth.authState.subscribe(user => {
       if (user) {
@@ -44,8 +49,10 @@ export class AuthenticationService {
   }
 
   // Login in with email/password
-  SignIn(email, password) {
-    return this.ngFireAuth.signInWithEmailAndPassword(email, password)
+  async SignIn(email, password) {
+    var result = await this.ngFireAuth.signInWithEmailAndPassword(email, password)
+    localStorage.setItem('user', JSON.stringify(result.user));
+    
   }
 
   // Register user with email/password

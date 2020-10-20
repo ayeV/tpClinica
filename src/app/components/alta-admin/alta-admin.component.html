@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+       
+        <li class="nav-item active">
+            <button pButton type="button" icon="pi pi-home" class="p-button-raised p-button-rounded" [routerLink]="['']" routerLinkActive="router-link-active" ></button>
+        </li>
+        <li>
+            <button pButton type="button" icon="pi pi-arrow-left" class="p-button-raised p-button-rounded" [routerLink]="['/AdminUsuarios']" routerLinkActive="router-link-active" ></button>
+        </li>
+      </ul>
+      <form class="form-inline mt-2 mt-md-0">
+        <button pButton type="button" icon="pi pi-sign-out" class="p-button-raised p-button-rounded" (click)="logOut()" ></button>
+          
+      </form>
+    </div>
+  </nav>
+  <body>
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card >
+            <mat-card-header>
+                <mat-card-title>Crear administrador</mat-card-title>
+            </mat-card-header>
+
+            <form class="example-form">
+              
+                <mat-card-content>
+                    <mat-form-field class="example-full-width">
+                        <input maxlength="30" type="email" matInput placeholder="Email" [(ngModel)]="user.email"
+                            name="email" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input maxlength="30" type="text" matInput placeholder="Nombre" [(ngModel)]="user.firstName"
+                            name="firstName" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input maxlength="30" type="text" matInput placeholder="Apellido" [(ngModel)]="user.lastName"
+                            name="lastName" required>
+                    </mat-form-field>
+
+
+
+                    <mat-form-field class="example-full-width">
+                        <input maxlength="15" type="password" matInput placeholder="Clave" [(ngModel)]="user.password"
+                            name="password" required>
+                    </mat-form-field>
+
+                </mat-card-content>
+
+                <button  mat-raised-button color="primary"  class="btn-block" (click)="Register()">Guardar</button>
+                <button  mat-raised-button color="warn"  class="btn-block" (click)="Cancel()">Cancelar</button>
+
+            </form>
+        </mat-card>
+    </div>
+  </body>
+   
+    <p-toast position="bottom-center"></p-toast>
+

@@ -1,0 +1,59 @@
+    <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+         
+          <li class="nav-item active">
+            <button pButton type="button" icon="pi pi-home" class="p-button-raised p-button-rounded" [routerLink]="['']" routerLinkActive="router-link-active" ></button>
+          </li>
+          <li>
+            <p-button label="Administrador" icon="pi pi-plus" [routerLink]="['/AltaAdmin']" routerLinkActive="router-link-active"></p-button>
+
+          </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+            <button pButton type="button" icon="pi pi-sign-out" class="p-button-raised p-button-rounded" (click)="logOut()" ></button>
+
+            
+        </form>
+      </div>
+    </nav>
+<div *ngIf="!estaCargando" style="margin-top: 3%;">
+    <p-table #dt [globalFilterFields]="['name','state']" [columns]="cols" [value]="users" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                Lista de medicos
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns style="background-color: lavender;">
+            <tr [ngClass]="{'cabecera': true}" style="background-color: lavender;">
+                <th style="background-color:  rgb(89, 192, 224); color: black;" *ngFor="let col of columns"
+                    [pSortableColumn]="col.field">{{col.header}}<p-sortIcon [field]="col.field">
+                    </p-sortIcon>
+                </th>
+                <th style="background-color:  rgb(89, 192, 224); color: black;" >
+                    Acciones
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-medico let-columns="columns">
+            <tr [ngClass]="{'fila': true}">
+                <td *ngFor="let col of columns">
+                    {{medico[col.field]}}
+                </td>
+                <td style="text-align: center">
+                    <button pButton type="button" icon="pi pi-check" class="p-button-raised p-button-rounded" (click)="AceptarMedico(medico)"></button>
+                    <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="RechazarMedico(medico)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<p-toast position="bottom-center"></p-toast>
