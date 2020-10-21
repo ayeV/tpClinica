@@ -47,8 +47,13 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import {TableModule} from 'primeng/table';
 import { AltaAdminComponent } from './components/alta-admin/alta-admin.component';
+import { MisDatosComponent } from './components/mis-datos/mis-datos.component';
 import {ToastModule} from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import {CardModule} from 'primeng/card';
+import {CarouselModule} from 'primeng/carousel';
+import { MenuComponent } from './components/menu/menu.component';
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -61,9 +66,13 @@ import { MessageService } from 'primeng/api';
     EmailVerificationComponent,
     AlertaComponent,
     AdminUsersComponent,
-    AltaAdminComponent
+    AltaAdminComponent,
+    MisDatosComponent,
+    MenuComponent
   ],
   imports: [
+    TooltipModule,
+    CarouselModule,
     TableModule,
     BrowserModule,
     AppRoutingModule,
@@ -91,6 +100,7 @@ import { MessageService } from 'primeng/api';
     ToastModule,
     MatCheckboxModule,
     MatCardModule,
+    CardModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDatepickerModule,

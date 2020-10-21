@@ -1,25 +1,5 @@
+<app-menu></app-menu>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-             
-              <li class="nav-item active">
-                <button pButton type="button" icon="pi pi-home" class="p-button-raised p-button-rounded" [routerLink]="['']" routerLinkActive="router-link-active" ></button>
-              </li>
-            </ul>
-            <form class="form-inline mt-2 mt-md-0">
-              <button pButton type="button" icon="pi pi-sign-out" class="p-button-raised p-button-rounded" (click)="logOut()" ></button>
-            </form>
-          </div>
-        </nav>
-      </header>
-      
-
-
     <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
         <mat-card>
             <mat-card-header>
@@ -29,7 +9,7 @@
             <form class="example-form">
 
                 <mat-card-content>
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="fill"  pTooltip="Elija la especialidad">
                         <mat-label>Especialidad</mat-label>
                         <mat-select (openedChange)="comboChange($event)" [formControl]="toppings">
                             <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad">
@@ -38,14 +18,14 @@
                     </mat-form-field>
 
 
-                    <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-form-field class="example-full-width" appearance="fill"  pTooltip="Elija cuando quiere atenderse">
                         <mat-label>Fecha</mat-label>
                         <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                       </mat-form-field>
 
-                      <mat-form-field appearance="fill">
+                      <mat-form-field appearance="fill" pTooltip="Horarios disponibles">
                         <mat-label>Horario</mat-label>
                         <mat-select (openedChange)="comboChange($event)" [formControl]="toppings">
                             <mat-option *ngFor="let horario of horarios" [value]="horario">

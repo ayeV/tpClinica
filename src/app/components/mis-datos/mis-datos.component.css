@@ -1,5 +1,33 @@
 
 
+html,
+body {
+  height: 100%;
+
+  background-image: url("../../../assets/images/defaultbk.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+ 
+
+}
+
+@keyframes p-progress-spinner-color {
+  100%,
+  0% {
+      stroke: #d62d20;
+  }
+  40% {
+      stroke: #0057e7;
+  }
+  66% {
+      stroke: #008744;
+  }
+  80%,
+  90% {
+      stroke: #ffa700;
+  }
+}
 
 
 .example-radio-group {

@@ -38,7 +38,15 @@ export class AltaAdminComponent implements OnInit {
   }
 
 
- 
+  logOut() {
+    this.authService.SignOut().then((res) => {
+      this.router.navigate(['/Login']);
+    }).catch((ex) => {
+      console.log(ex);
+
+    });
+
+  }
 
   Cancel() {
     this.user = new Usuario();

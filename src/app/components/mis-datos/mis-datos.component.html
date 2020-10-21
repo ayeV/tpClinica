@@ -1,0 +1,16 @@
+<app-menu></app-menu>
+<body>
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <p-progressSpinner *ngIf="estaCargando"></p-progressSpinner>
+        <p-card header="Mis datos" styleClass="p-card-shadow" *ngIf="!estaCargando">
+            <ng-template pTemplate="header">
+
+            </ng-template>
+            <img  [src]="user.photo1" style="width: 300px; height: 300px;">
+            <img  [src]="user.photo2" style="width: 300px; height: 300px;">
+            <p>Nombre: {{user.firstName}}</p>
+            <p>Apellido: {{user.lastName}}</p>
+        
+        </p-card>
+        </div>  
+</body>

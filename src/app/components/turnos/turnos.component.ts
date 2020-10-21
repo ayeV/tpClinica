@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication-service';
 
 @Component({
   selector: 'app-turnos',
@@ -18,7 +19,7 @@ export class TurnosComponent implements OnInit {
 
   toppings = new FormControl();
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,private authService: AuthenticationService) { }
 
   ngOnInit(): void {
   }
@@ -35,9 +36,20 @@ export class TurnosComponent implements OnInit {
 
   }
 
+  logOut() {
+    this.authService.SignOut().then((res) => {
+      this.router.navigate(['/Login']);
+    }).catch((ex) => {
+      console.log(ex);
+
+    });
+
+  }
+
   Cancel()
   {
-    this.router.navigate(['']);
+    
   }
+
 
 }

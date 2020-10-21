@@ -20,8 +20,10 @@
         </form>
       </div>
     </nav>
-<div *ngIf="!estaCargando" style="margin-top: 3%;">
-    <p-table #dt [globalFilterFields]="['name','state']" [columns]="cols" [value]="users" [paginator]="true" [rows]="10">
+    <p-progressSpinner fxLayoutAlign="center center" *ngIf="estaCargando"></p-progressSpinner>
+<div  style="margin-top: 3%;">
+    
+    <p-table  *ngIf="!estaCargando" #dt [globalFilterFields]="['name','state']" [columns]="cols" [value]="users" [paginator]="true" [rows]="10">
         <ng-template pTemplate="caption">
             <div class="table-header">
                 Lista de medicos
