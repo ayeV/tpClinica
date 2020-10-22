@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Como usar la app
 
-![Primero el usuario debe loguearse en la aplicacion segun el perfil deseado](https://github.com/ayeV/tpClinica/blob/main/screenshots/s1?raw=true)
+![s1](https://github.com/ayeV/tpClinica/blob/main/screenshots/s1.png)
