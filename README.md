@@ -28,4 +28,28 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Como usar la app
 
+Primero el usuario debe loguearse con su email y clave, en caso de no tener usuario debe clickear en Registrarse.
 ![s1](https://github.com/ayeV/tpClinica/blob/main/screenshots/s1.png)
+
+## Perfil de administrador
+El administrador podra ver la misma pantalla principal que los demas usuarios pero sin la posibilidad de pedir un turno, ni ver los turnos.
+Tendrá una sección para administrar usuarios:
+![s2](https://github.com/ayeV/tpClinica/blob/main/screenshots/s2.png)
+En dicha sección tendra una lista de médicos para poder aceptar o rechazar en el sistema, ademas podra dar de alta otros administradores.
+![s6](https://github.com/ayeV/tpClinica/blob/main/screenshots/s6.png)
+![s7](https://github.com/ayeV/tpClinica/blob/main/screenshots/s7.png)
+
+
+
+## Perfil de paciente
+El paciente tendrá secciones especiales como las que se ven remarcadas en rojo en la siguiente captura de pantalla:
+![s3](https://github.com/ayeV/tpClinica/blob/main/screenshots/s3.png)
+
+
+## Perfil de médico
+El médico al igual que el paciente tambien tendrá una sección de Mis Turnos con la diferencia de que seran los turnos asignados al profesional unicamente.
+![s4](https://github.com/ayeV/tpClinica/blob/main/screenshots/s4.png)
+
+Si entra a la sección mencionada anteriormente podrá ver lo siguiente:
+![s5](https://github.com/ayeV/tpClinica/blob/main/screenshots/s5.png)
+En la columna acciones podrá cancelar o aceptar un turno.
