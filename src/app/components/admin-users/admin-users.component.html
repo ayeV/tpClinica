@@ -20,7 +20,10 @@
         </form>
       </div>
     </nav>
-    <p-progressSpinner fxLayoutAlign="center center" *ngIf="estaCargando"></p-progressSpinner>
+    <div *ngIf="estaCargando">
+        <p-progressSpinner fxLayoutAlign="center center"  class="spinner"></p-progressSpinner>
+
+    </div>
 <div  style="margin-top: 3%;">
     
     <p-table  *ngIf="!estaCargando" #dt [globalFilterFields]="['name','state']" [columns]="cols" [value]="users" [paginator]="true" [rows]="10">

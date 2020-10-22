@@ -12,28 +12,10 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 export class MisTurnosComponent implements OnInit {
   public turnos = 
   [
-    {
-      paciente: 'Juan Perez',
-      medico: 'Ana Lopez',
-      estado:'Pendiente',
-    },
-    {
-      paciente: 'Juan Perez',
-      medico: 'Ana Lopez',
-      estado:'Pendiente',
-    },
-    {
-      paciente: 'Juan Perez',
-      medico: 'Ana Lopez',
-      estado:'Pendiente',
-    },
-    {
-      paciente: 'Juan Perez',
-      medico: 'Ana Lopez',
-      estado:'Pendiente',
-    }
+    
     
   ];
+  public loggedUser:any;
   public cargando = true;
   public contador = 0;
   @ViewChild(Table) table: Table;
@@ -71,7 +53,7 @@ export class MisTurnosComponent implements OnInit {
     
   ];
     this.cols = [{ field: 'paciente', header: 'Paciente'},{ field: 'medico', header: 'Medico'}, { field: 'estado', header: 'Estado'}]
-
+  this.getLoggedUser();
   }
 
   logOut() {
@@ -83,5 +65,20 @@ export class MisTurnosComponent implements OnInit {
     });
 
   }
+
+  getLoggedUser()
+  {
+    let user;
+    this.db.getLoggedUser(this.authService.userLoggedIn.uid).subscribe((res)=>{
+      
+        user = res.payload.data();
+        this.cargando = false;
+        this.loggedUser = user;
+        console.log(this.loggedUser)
+    });
+  }
+
+
+
 
 }

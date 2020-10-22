@@ -20,12 +20,24 @@
     
           <div class="display-flex">
     
-            <button mat-raised-button color="primary" (click)="Login()" class="btn-block">Ingresar</button>
+            <button pButton pRipple type="button" (click)="Login()" label="Ingresar"  class="p-button-info" style="width: 100%;"></button>
+
           </div>
     
           <div class="display-flex">
     
-            <button  mat-raised-button color="warn"  (click)="FillInput()" class="btn-block">Usuario1</button>
+            <button pButton pRipple type="button" label="Admin" (click)="fillInput('admin')" class="p-button" style="width: 100%;"></button>
+
+          </div> 
+          <div class="display-flex">
+    
+            <button pButton pRipple type="button" label="Médico" (click)="fillInput('medico')" class="p-button-success" style="width: 100%;"></button>
+
+          </div> 
+          <div class="display-flex">
+    
+            <button pButton pRipple type="button" label="Paciente" (click)="fillInput('paciente')" class="p-button-help" style="width: 100%;"></button>
+
           </div> 
     
           <div class="display-flex">

@@ -1,8 +1,11 @@
 
 
   <body>
- 
-    <header>
+    <div  *ngIf="!loggedUser">
+      <p-progressSpinner  class="spinner" >Por favor espere...</p-progressSpinner>
+
+    </div>
+    <header *ngIf="loggedUser">
   <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -11,16 +14,16 @@
       <ul class="navbar-nav mr-auto">
        
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/MisTurnos']" routerLinkActive="router-link-active" >Mis turnos</a>
+          <a class="nav-link" [routerLink]="['/MisTurnos']" routerLinkActive="router-link-active" *ngIf="!validarAdmin()" >Mis turnos</a>
         </li>
-        <li class="nav-item" *ngIf="validarAdmin()">
+        <li class="nav-item active" *ngIf="validarAdmin()">
           <a class="nav-link" [routerLink]="['/AdminUsuarios']" routerLinkActive="router-link-active" >Administrar usuarios</a>
         </li>
       </ul>
        
       
       <form class="form-inline mt-2 mt-md-0">
-        <button pButton type="button" icon="pi pi-user" class="p-button-raised p-button-rounded" [routerLink]="['/MisDatos']" routerLinkActive="router-link-active" ></button>
+        <button pButton type="button" icon="pi pi-user" class="p-button-raised p-button-rounded" [routerLink]="['/MisDatos']" routerLinkActive="router-link-active" *ngIf="loggedUser.role == 'paciente'" ></button>
 
         <button pButton type="button" icon="pi pi-sign-out" class="p-button-raised p-button-rounded" (click)="logOut()" ></button>
       </form>
@@ -28,11 +31,10 @@
   </nav>
 </header>
 
-<main role="main">
-  <!-- <div class="progress-spinner" [hidden]="!estaCargando">
-    <p-progressSpinner class="spinner">Por favor espere...</p-progressSpinner>
+<main role="main" *ngIf="loggedUser">
   
-  </div> -->
+   
+  
   <div id="myCarousel"  data-ride="carousel">
   
     <div class="carousel-inner clase1">
@@ -76,7 +78,7 @@
 
     <hr class="featurette-divider">
 
-    <div class="row featurette">
+    <div class="row featurette" [hidden] = 'loggedUser.role != "paciente"'>
       <div class="col-md-7">
         <h2 class="featurette-heading" [routerLink]="['/PedirTurno']" routerLinkActive="router-link-active"  class="class2" >Administra tus turnos de una manera fácil y rápida.</h2>
       </div>
