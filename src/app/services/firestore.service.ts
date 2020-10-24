@@ -5,6 +5,7 @@ import { Usuario } from '../classes/user';
 import * as firebase from 'firebase';
 import { AuthenticationService } from './authentication-service';
 import { useAnimation } from '@angular/animations';
+import { Turno } from '../classes/turno';
 
 
 @Injectable({
@@ -42,6 +43,21 @@ export class FirestoreService {
         console.error("Error writing document: ", error);
       });
   }
+
+
+  postTurno(turno: Turno) {
+    return this.db.collection("turnos").add({
+      medico: turno.medico,
+      fecha: turno.fecha,
+      horario: turno.horario,
+      especialidad: turno.especialidad,
+      paciente: turno.paciente,
+      estado : turno.estado
+    });
+     
+  }
+
+
 
   
   uploadFile(dataUrl) {
@@ -86,6 +102,15 @@ export class FirestoreService {
   }
 
 
+  updateMedico(user:any,uid)
+  {
+    return this.db.collection('users').doc(uid).update(
+      {
+         diasQueTrabaja: user.diasQueTrabaja,
+      },
+    )
+
+  }
 
 
 

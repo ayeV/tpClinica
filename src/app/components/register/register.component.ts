@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Usuario } from 'src/app/classes/user';
 import { AlertService } from 'src/app/services/alertService';
 import { AuthenticationService } from 'src/app/services/authentication-service';
@@ -28,7 +29,8 @@ export class RegisterComponent implements OnInit {
     public router: Router,
     private alertService: AlertService,
     private dbService: FirestoreService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -94,6 +96,8 @@ export class RegisterComponent implements OnInit {
                       this.dbService.uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                         this.dbService.updateUserPhoto2(this.authService.userData.uid, downloadURL).then(() => {
                           console.log("Registro exitoso");
+                          this.messageService.add({ severity: 'success', summary: '', detail:"Registro exitoso" });
+
                         });
                       }
                       )},
@@ -107,7 +111,7 @@ export class RegisterComponent implements OnInit {
         }
       }).catch((ex) => {
         this.errorMessage = this.ErrorMessageBuilder(ex.code);
-        this.alertService.error(ex);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail:this.errorMessage });
       });
 
     }
@@ -117,7 +121,14 @@ export class RegisterComponent implements OnInit {
 
   comboChange(event) {
     if (!event) {
-      this.user.specialities = this.toppings.value;
+      this.user.specialities = this.toppings.value.map((x)=>
+      {
+        return{
+          especialidad: x,
+          duracion: 30
+        };
+      });
+      
       console.log(this.user.specialities);
     }
   }

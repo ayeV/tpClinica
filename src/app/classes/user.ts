@@ -9,6 +9,6 @@ export class Usuario {
     public role:string;
     public specialities = [];
     public state = "not-verified";
-
+    
 
 }

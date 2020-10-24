@@ -38,7 +38,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { TurnosComponent } from './components/turnos/turnos.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MisTurnosComponent } from './components/mis-turnos/mis-turnos.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import {ButtonModule} from 'primeng/button';
@@ -54,9 +54,13 @@ import {CardModule} from 'primeng/card';
 import {CarouselModule} from 'primeng/carousel';
 import { MenuComponent } from './components/menu/menu.component';
 import {TooltipModule} from 'primeng/tooltip';
+import { AdminMedicoComponent } from './components/admin-medico/admin-medico.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import {FieldsetModule} from 'primeng/fieldset';
 
 @NgModule({
   declarations: [
+    
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -68,9 +72,12 @@ import {TooltipModule} from 'primeng/tooltip';
     AdminUsersComponent,
     AltaAdminComponent,
     MisDatosComponent,
-    MenuComponent
+    MenuComponent,
+    AdminMedicoComponent
   ],
   imports: [
+    FieldsetModule,
+    NgxMaterialTimepickerModule.setLocale('es'),
     TooltipModule,
     CarouselModule,
     TableModule,
@@ -114,7 +121,8 @@ import {TooltipModule} from 'primeng/tooltip';
     MatExpansionModule,
     MatDialogModule,
   ],
-  providers: [MessageService],
+  providers: [MessageService,
+    {provide: MAT_DATE_LOCALE, useValue: 'es'},],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

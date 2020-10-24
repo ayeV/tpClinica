@@ -1,39 +1,65 @@
 <app-menu></app-menu>
+<div style="margin-top: 2%;">
+    <p-fieldset legend="Importante" [toggleable]="true">
+        Para solicitar un turno primero debe especificar la especialidad médica con la cual desea atenderse, el profesional y la fecha.
+        Luego debe clickear en el botón de búsqueda y elegir el horario deseado.
+        Finalmente clickear en el botón Confimar para guardar el turno.
+    </p-fieldset>
+    
+</div>
+      
+
 <body>
-    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="!estaCargando">
         <mat-card>
             <mat-card-header>
                 <mat-card-title>Solicitar turno</mat-card-title>
             </mat-card-header>
 
+
             <form class="example-form">
 
                 <mat-card-content>
-                    <mat-form-field appearance="fill"  pTooltip="Elija la especialidad">
+                    <mat-form-field appearance="fill" pTooltip="Elija la especialidad">
                         <mat-label>Especialidad</mat-label>
-                        <mat-select (openedChange)="comboChange($event)" [formControl]="toppings">
+                        <mat-select [(ngModel)]="especialidad" (openedChange)="comboChange($event)" [formControl]="toppings" required>
                             <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad">
                                 {{especialidad}}</mat-option>
                         </mat-select>
                     </mat-form-field>
 
 
-                    <mat-form-field class="example-full-width" appearance="fill"  pTooltip="Elija cuando quiere atenderse">
+                    <mat-form-field class="example-full-width" appearance="fill"
+                        pTooltip="Elija cuando quiere atenderse">
                         <mat-label>Fecha</mat-label>
-                        <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker">
+                        <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [(ngModel)]="fecha"
+                            name="fecha" [min]="minDate" [max]="maxDate" required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
+                    </mat-form-field>
 
-                      <mat-form-field appearance="fill" pTooltip="Horarios disponibles">
+                    <mat-form-field pTooltip="Medicos disponibles">
+                        <mat-label>Médico</mat-label>
+                        <mat-select [(ngModel)]="medicoSeleccionado" name="medicoSeleccionado" required>
+                            <mat-option *ngFor="let medico of medicos" [value]="medico">
+                                {{medico.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div>
+                        <button pButton pRipple label="Buscar"  (click)="buscar()" icon="pi pi-search"   styleClass="p-button-lg"></button>
+                    </div>
+
+                    <mat-form-field appearance="fill" pTooltip="Horarios disponibles">
+                        
                         <mat-label>Horario</mat-label>
-                        <mat-select (openedChange)="comboChange($event)" [formControl]="toppings">
-                            <mat-option *ngFor="let horario of horarios" [value]="horario">
-                                {{horario}}</mat-option>
+                        <mat-select required [(ngModel)]="turnoSeleccionado" name="turnoSeleccionado">
+                            <mat-option *ngFor="let horario of turnos" [value]="horario">
+                                {{horario.horario}}</mat-option>
                         </mat-select>
                     </mat-form-field>
 
-              
+
                 </mat-card-content>
 
                 <button mat-raised-button color="primary" class="btn-block" (click)="Confirm()">Confirmar</button>
@@ -43,5 +69,5 @@
         </mat-card>
     </div>
 
-
+    <p-toast position="bottom-center"></p-toast>
 </body>

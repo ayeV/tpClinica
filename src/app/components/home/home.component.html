@@ -1,105 +1,119 @@
+<body>
+  <div *ngIf="!loggedUser">
+    <p-progressSpinner class="spinner">Por favor espere...</p-progressSpinner>
+
+  </div>
+  <header *ngIf="loggedUser">
+    <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/MisTurnos']" routerLinkActive="router-link-active"
+              *ngIf="!validarAdmin()">Mis turnos</a>
+          </li>
+          <li class="nav-item active" *ngIf="validarAdmin()">
+            <a class="nav-link" [routerLink]="['/AdminUsuarios']" routerLinkActive="router-link-active">Administrar
+              usuarios</a>
+          </li>
+          <li class="nav-item active" *ngIf="loggedUser.role == 'medico'">
+            <a class="nav-link" [routerLink]="['/MisHorarios']" routerLinkActive="router-link-active">Administrar
+              horarios</a>
+          </li>
+        </ul>
 
 
-  <body>
-    <div  *ngIf="!loggedUser">
-      <p-progressSpinner  class="spinner" >Por favor espere...</p-progressSpinner>
+        <form class="form-inline mt-2 mt-md-0">
+          <button pButton type="button" icon="pi pi-user" class="p-button-raised p-button-rounded"
+            [routerLink]="['/MisDatos']" routerLinkActive="router-link-active"
+            *ngIf="loggedUser.role == 'paciente'"></button>
 
-    </div>
-    <header *ngIf="loggedUser">
-  <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-       
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/MisTurnos']" routerLinkActive="router-link-active" *ngIf="!validarAdmin()" >Mis turnos</a>
-        </li>
-        <li class="nav-item active" *ngIf="validarAdmin()">
-          <a class="nav-link" [routerLink]="['/AdminUsuarios']" routerLinkActive="router-link-active" >Administrar usuarios</a>
-        </li>
-      </ul>
-       
-      
-      <form class="form-inline mt-2 mt-md-0">
-        <button pButton type="button" icon="pi pi-user" class="p-button-raised p-button-rounded" [routerLink]="['/MisDatos']" routerLinkActive="router-link-active" *ngIf="loggedUser.role == 'paciente'" ></button>
+          <button pButton type="button" icon="pi pi-sign-out" class="p-button-raised p-button-rounded"
+            (click)="logOut()"></button>
+        </form>
+      </div>
+    </nav>
+  </header>
 
-        <button pButton type="button" icon="pi pi-sign-out" class="p-button-raised p-button-rounded" (click)="logOut()" ></button>
-      </form>
-    </div>
-  </nav>
-</header>
+  <main role="main" *ngIf="loggedUser">
 
-<main role="main" *ngIf="loggedUser">
-  
-   
-  
-  <div id="myCarousel"  data-ride="carousel">
-  
-    <div class="carousel-inner clase1">
-      <div class="carousel-item active">
-        <img src="./../../../assets/images/header.jpg" class="img-fluid" >
-        <div class="container">
-          <div class="carousel-caption text-center">
-            <p style="color: black;">En Clínica OnLine, una de las especialidades que nos distingue es en la investigación médica.</p>
-            <h1 style="color: black;">Todo el cuidado de tu salud en un mismo lugar.</h1>
-           
+
+
+    <div id="myCarousel" data-ride="carousel">
+
+      <div class="carousel-inner clase1">
+        <div class="carousel-item active">
+          <img src="./../../../assets/images/header.jpg" class="img-fluid">
+          <div class="container">
+            <div class="carousel-caption text-center">
+              <p style="color: black;">En Clínica OnLine, una de las especialidades que nos distingue es en la
+                investigación médica.</p>
+              <h1 style="color: black;">Todo el cuidado de tu salud en un mismo lugar.</h1>
+
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="container marketing">
+    <div class="container marketing">
 
-    <!-- Three columns of text below the carousel -->
-    <div class="row">
-      <div class="col-lg-4">
-        <img src="./../../../assets/images/cuidado-de-la-salud.png" class="img-rounded" style="width: 25%" >
-        <h2> Movimiento en la lucha contra el ACV</h2>
-        <p>1 de cada 4 adultos podría sufrir un ACV, en cualquier momento y en cualquier lugar. Pero la gran mayoría de los Ataques Cerebrovasculares se pueden prevenir ¿Cómo? Manteniéndose en Movimiento.</p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img src="./../../../assets/images/x-ray.png" class="img-rounded" style="width: 25%">
-        <h2>Diagnóstico por Imágenes</h2>
-        <p>Centro integrado en diagnóstico por imágenes para tratamiento de patologías de complejidad baja mediana y alta.</p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img src="./../../../assets/images/documento-medico.png" class="img-rounded" style="width: 25%">
-        <h2>Sistema de encuestas</h2>
-        <p>Nuestro sistema de encuestas nos permite saber las necesidades de los pacientes para mejorar día a día.</p>
-     
-      </div><!-- /.col-lg-4 -->
-    </div><!-- /.row -->
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img src="./../../../assets/images/cuidado-de-la-salud.png" class="img-rounded" style="width: 25%">
+          <h2> Movimiento en la lucha contra el ACV</h2>
+          <p>1 de cada 4 adultos podría sufrir un ACV, en cualquier momento y en cualquier lugar. Pero la gran mayoría
+            de los Ataques Cerebrovasculares se pueden prevenir ¿Cómo? Manteniéndose en Movimiento.</p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img src="./../../../assets/images/x-ray.png" class="img-rounded" style="width: 25%">
+          <h2>Diagnóstico por Imágenes</h2>
+          <p>Centro integrado en diagnóstico por imágenes para tratamiento de patologías de complejidad baja mediana y
+            alta.</p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img src="./../../../assets/images/documento-medico.png" class="img-rounded" style="width: 25%">
+          <h2>Sistema de encuestas</h2>
+          <p>Nuestro sistema de encuestas nos permite saber las necesidades de los pacientes para mejorar día a día.</p>
+
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
 
 
-    <!-- START THE FEATURETTES -->
+      <!-- START THE FEATURETTES -->
 
-    <hr class="featurette-divider">
+      <hr class="featurette-divider">
 
-    <div class="row featurette" [hidden] = 'loggedUser.role != "paciente"'>
-      <div class="col-md-7">
-        <h2 class="featurette-heading" [routerLink]="['/PedirTurno']" routerLinkActive="router-link-active"  class="class2" >Administra tus turnos de una manera fácil y rápida.</h2>
+      <div class="row featurette" [hidden]='loggedUser.role != "paciente"'>
+        <div class="col-md-7">
+          <h1 [routerLink]="['/PedirTurno']" routerLinkActive="router-link-active" class="class2">Pedir turno</h1>
+          <p>
+            Programa tus turnos desde la comodidad de tu casa.
+          </p>
+        </div>
+        <div class="col-md-5">
+          <img src="./../../../assets/images/turnos.jpg" class="img-rounded" style="width: 100%;height: 100%;">
+
+        </div>
       </div>
-      <div class="col-md-5">
-        <img src="./../../../assets/images/turnos.jpg" class="img-rounded" style="width: 100%;height: 100%;">
 
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
+      <hr class="featurette-divider">
 
 
 
-    <!-- /END THE FEATURETTES -->
+      <!-- /END THE FEATURETTES -->
 
-  </div><!-- /.container -->
+    </div><!-- /.container -->
 
 
-  <!-- FOOTER -->
-  <footer class="container">
-    <h2 style="color: black;">Horarios de atencion: Lunes a Viernes de 8:00 a 19:00.
-      Sábados de 8:00 a 14:00</h2>
-  </footer>
-</main>
+    <!-- FOOTER -->
+    <footer class="container">
+      <h2 style="color: black;">Horarios de atencion: Lunes a Viernes de 8:00 a 19:00.
+        Sábados de 8:00 a 14:00</h2>
+    </footer>
+  </main>

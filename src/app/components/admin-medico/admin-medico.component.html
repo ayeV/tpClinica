@@ -1,0 +1,91 @@
+<app-menu></app-menu>
+
+<body>
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="loggedUser">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Admistración de horarios</mat-card-title>
+            </mat-card-header>
+
+            <form class="example-form">
+
+                <mat-card-content>
+                    <mat-form-field appearance="fill">
+                        <mat-select multiple (openedChange)="comboChange($event)" [formControl]="toppings" placeholder="Días a trabajar">
+                            <mat-option *ngFor="let dia of dias" [value]="dia">
+                                {{dia}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                      <div>
+                     <mat-label>Desde: </mat-label>
+
+                     </div>
+
+                    <div >
+                        <input [ngxTimepicker]="range1" min="08:00" max="18:00" readonly [format] = 24 name="diasDeSemanaDesde" [(ngModel)]="diasDeSemanaDesde">
+                        <ngx-material-timepicker  #range1 [minutesGap] = "30"></ngx-material-timepicker>
+                    </div>
+                    <mat-label>Hasta: </mat-label>
+
+                    <div >
+                        <input [ngxTimepicker]="range2" min="09:00" max="19:00" readonly  [format] = 24 [(ngModel)]="diasDeSemanaHasta" name="diasDeSemanaHasta">
+                        <ngx-material-timepicker  #range2 [minutesGap] = "30"></ngx-material-timepicker>
+                    </div>
+
+
+
+                    <section class="example-section">
+                        <mat-checkbox class="example-margin" [(ngModel)]="trabajaLosSabados" name="trabajaLosSabados" >Deseo trabajar los sábados
+                        </mat-checkbox>
+                    </section>
+
+
+                    <section class="example-section" *ngIf="trabajaLosSabados">
+                                          
+                     <div>
+                    <mat-label>Desde: </mat-label>
+
+                    </div>
+
+                    <div >
+                        <input [ngxTimepicker]="range3" min="08:00" max="18:00" readonly  [format] = 24 [(ngModel)]="horarioSabadosDesde" name="horarioSabadosDesde">
+                        <ngx-material-timepicker  #range3 [minutesGap] = "30"></ngx-material-timepicker>
+                    </div>
+                    <mat-label>Hasta: </mat-label>
+
+                    <div >
+                        <input [ngxTimepicker]="range4" min="09:00" max="19:00" readonly  [format] = 24  [(ngModel)]="horarioSabadosHasta" name="horarioSabadosHasta">
+                        <ngx-material-timepicker #range4 [minutesGap] = "30"></ngx-material-timepicker>
+                    </div>
+
+                    </section>
+
+                    <section>
+                        <mat-label>Duracion de la consulta por especialidad</mat-label>
+                       <div *ngFor="let item of loggedUser.specialities">
+                           <div>
+                            <mat-label>{{item.especialidad}}: </mat-label>
+
+                           </div>
+                        <mat-form-field appearance="fill">
+                            <mat-select  (openedChange)="comboChange($event)"  [(value)]= "item.duracion">
+                                <mat-option *ngFor="let time of times" [value]="time">
+                                    {{time}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                       </div>
+                    </section>
+
+                </mat-card-content>
+
+                <button mat-raised-button color="primary" class="btn-block" (click)="Confirm()">Confirmar</button>
+                <button mat-raised-button color="warn" class="btn-block" (click)="Cancel()">Cancelar</button>
+
+            </form>
+        </mat-card>
+    </div>
+
+    <p-toast position="bottom-center"></p-toast>
+
+</body>

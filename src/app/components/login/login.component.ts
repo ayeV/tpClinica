@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/services/alertService';
 import { Usuario } from './../../classes/user';
 import { isThisTypeNode } from 'typescript';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -25,16 +26,17 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService,
     private authService: AuthenticationService,
     public dialog: MatDialog,
-    private db: FirestoreService) { }
+    private db: FirestoreService,
+    private messageService: MessageService
+    ) { }
 
   ngOnInit(): void {
   }
 
 
   Login() {
-    this.alertService.clear();
-
-    if (this.user.email != null && this.user.password != null) {
+    this.messageService.clear();
+    if (this.user.email != '' && this.user.password != '') {
       this.authService.SignIn(this.user.email, this.user.password).then((res) => {
         this.db.getLoggedUser(this.authService.userLoggedIn.uid).subscribe((data) => {
           let user: any = data.payload.data();
@@ -43,7 +45,8 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['']);
             }
             else {
-              this.alertService.error("Debes verificar tu email para poder iniciar sesión.");
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debes verificar tu email para poder iniciar sesión.' });
+
             }
           }
           else {
@@ -57,9 +60,14 @@ export class LoginComponent implements OnInit {
       }).catch((ex) => {
         console.log(ex);
         this.errorMessage = this.ErrorMessageBuilder(ex.code);
-        this.alertService.error(this.errorMessage);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: this.errorMessage });
 
       });
+    }
+    else
+    {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ingrese su email y clave para poder iniciar sesión.' });
+
     }
   }
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminMedicoComponent } from './components/admin-medico/admin-medico.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AltaAdminComponent } from './components/alta-admin/alta-admin.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'AdminUsuarios', component: AdminUsersComponent,canActivate: [AuthGuard]},
   { path: 'AltaAdmin', component: AltaAdminComponent,canActivate: [AuthGuard]},
   { path: 'MisDatos', component: MisDatosComponent,canActivate: [AuthGuard]},
+  { path: 'MisHorarios', component: AdminMedicoComponent,canActivate: [AuthGuard]},
 
 
 ];
