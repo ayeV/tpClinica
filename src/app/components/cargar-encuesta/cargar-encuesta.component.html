@@ -1,0 +1,48 @@
+<app-menu></app-menu>
+
+<body>
+
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="!cargando && loggedUser ">
+        <p-card header="Encuesta">
+            <h2>Médico:  {{turno.medico.name}}</h2>
+            <div class="p-field">
+                <label>Cómo calificaría la atencion recibida?</label>
+                <p-rating [cancel]="false" [(ngModel)]="puntuacionAtencion" (onRate)="onRateEvent($event)"></p-rating>
+
+            </div>
+
+            <div>
+                <label>Volvería a atenderse con este profesional?</label>
+            </div>
+            <div class="p-field-radiobutton">
+                <p-radioButton value="si" [(ngModel)]="estaConforme" inputId="city1" label="Si">
+                </p-radioButton>
+
+            </div>
+            <div class="p-field-radiobutton">
+                <p-radioButton value="no" [(ngModel)]="estaConforme" inputId="city2" label="No">
+                </p-radioButton>
+
+            </div>
+
+            <div class="p-field">
+                <div>
+                    <label>Comentarios:</label>
+                </div>
+                <textarea pInputTextarea [(ngModel)]="comentario"></textarea>
+            </div>
+            <div>
+                <button   pButton type="button" label="Guardar" (click)="cargar()"></button>
+                <button  class="p-button-danger" pButton type="button" label="Cancelar" [routerLink]="['/MisTurnos']" routerLinkActive="router-link-active" ></button>
+
+            </div>
+            
+
+        </p-card>
+
+
+
+    </div>
+
+    <p-toast position="bottom-center"></p-toast>
+</body>

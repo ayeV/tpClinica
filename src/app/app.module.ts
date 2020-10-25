@@ -57,6 +57,16 @@ import {TooltipModule} from 'primeng/tooltip';
 import { AdminMedicoComponent } from './components/admin-medico/admin-medico.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {FieldsetModule} from 'primeng/fieldset';
+import {DialogModule} from 'primeng/dialog';
+import { CargarResenaComponent } from './components/cargar-resena/cargar-resena.component';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { VerResenaComponent } from './components/ver-resena/ver-resena.component';
+import { DialogService, DynamicDialogConfig, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CargarEncuestaComponent } from './components/cargar-encuesta/cargar-encuesta.component';
+import { VerEncuestaComponent } from './components/ver-encuesta/ver-encuesta.component';
+import {RatingModule} from 'primeng/rating';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [
@@ -73,9 +83,19 @@ import {FieldsetModule} from 'primeng/fieldset';
     AltaAdminComponent,
     MisDatosComponent,
     MenuComponent,
-    AdminMedicoComponent
+    AdminMedicoComponent,
+    CargarResenaComponent,
+    VerResenaComponent,
+    CargarEncuestaComponent,
+    VerEncuestaComponent
   ],
   imports: [
+    RadioButtonModule,
+    InputTextareaModule,
+    RatingModule,
+    DynamicDialogModule,
+    InputNumberModule,
+    DialogModule,
     FieldsetModule,
     NgxMaterialTimepickerModule.setLocale('es'),
     TooltipModule,
@@ -121,7 +141,7 @@ import {FieldsetModule} from 'primeng/fieldset';
     MatExpansionModule,
     MatDialogModule,
   ],
-  providers: [MessageService,
+  providers: [DialogService,DynamicDialogRef,DynamicDialogConfig,MessageService,
     {provide: MAT_DATE_LOCALE, useValue: 'es'},],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

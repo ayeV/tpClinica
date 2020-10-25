@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminMedicoComponent } from './components/admin-medico/admin-medico.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AltaAdminComponent } from './components/alta-admin/alta-admin.component';
+import { CargarEncuestaComponent } from './components/cargar-encuesta/cargar-encuesta.component';
+import { CargarResenaComponent } from './components/cargar-resena/cargar-resena.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'AltaAdmin', component: AltaAdminComponent,canActivate: [AuthGuard]},
   { path: 'MisDatos', component: MisDatosComponent,canActivate: [AuthGuard]},
   { path: 'MisHorarios', component: AdminMedicoComponent,canActivate: [AuthGuard]},
+  { path: 'CargarResena', component: CargarResenaComponent,canActivate: [AuthGuard]},
+  { path: 'CargarEncuesta', component: CargarEncuestaComponent,canActivate: [AuthGuard]},
 
 
 ];

@@ -21,9 +21,9 @@
             <form class="example-form">
 
                 <mat-card-content>
-                    <mat-form-field appearance="fill" pTooltip="Elija la especialidad">
+                    <mat-form-field appearance="fill" pTooltip="Area médica con la que quiere atenderse">
                         <mat-label>Especialidad</mat-label>
-                        <mat-select [(ngModel)]="especialidad" (openedChange)="comboChange($event)" [formControl]="toppings" required>
+                        <mat-select [(ngModel)]="especialidad" (openedChange)="comboChange($event)"  required name="especialidad">
                             <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad">
                                 {{especialidad}}</mat-option>
                         </mat-select>
@@ -31,7 +31,7 @@
 
 
                     <mat-form-field class="example-full-width" appearance="fill"
-                        pTooltip="Elija cuando quiere atenderse">
+                        pTooltip="Fecha del turno">
                         <mat-label>Fecha</mat-label>
                         <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [(ngModel)]="fecha"
                             name="fecha" [min]="minDate" [max]="maxDate" required>
@@ -39,7 +39,7 @@
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
 
-                    <mat-form-field pTooltip="Medicos disponibles">
+                    <mat-form-field pTooltip="Médicos disponibles">
                         <mat-label>Médico</mat-label>
                         <mat-select [(ngModel)]="medicoSeleccionado" name="medicoSeleccionado" required>
                             <mat-option *ngFor="let medico of medicos" [value]="medico">
@@ -47,13 +47,13 @@
                         </mat-select>
                     </mat-form-field>
                     <div>
-                        <button pButton pRipple label="Buscar"  (click)="buscar()" icon="pi pi-search"   styleClass="p-button-lg"></button>
+                        <button pButton pRipple label="Buscar horarios"  (click)="buscar()" icon="pi pi-search"   styleClass="p-button-lg"></button>
                     </div>
 
-                    <mat-form-field appearance="fill" pTooltip="Horarios disponibles">
+                    <mat-form-field appearance="fill" >
                         
                         <mat-label>Horario</mat-label>
-                        <mat-select required [(ngModel)]="turnoSeleccionado" name="turnoSeleccionado">
+                        <mat-select required [(ngModel)]="turnoSeleccionado" name="turnoSeleccionado" pTooltip="Horarios disponibles">
                             <mat-option *ngFor="let horario of turnos" [value]="horario">
                                 {{horario.horario}}</mat-option>
                         </mat-select>
@@ -63,7 +63,7 @@
                 </mat-card-content>
 
                 <button mat-raised-button color="primary" class="btn-block" (click)="Confirm()">Confirmar</button>
-                <button mat-raised-button color="warn" class="btn-block" (click)="Cancel()">Cancelar</button>
+                <button mat-raised-button color="warn" class="btn-block" [routerLink]="['']" routerLinkActive="router-link-active" >Cancelar</button>
 
             </form>
         </mat-card>

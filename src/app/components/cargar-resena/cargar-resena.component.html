@@ -1,0 +1,52 @@
+<app-menu></app-menu>
+
+<body>
+
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="!cargando && loggedUser ">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Reseña del paciente: {{turno.paciente.firstName}} {{turno.paciente.lastName}}
+                </mat-card-title>
+            </mat-card-header>
+
+            <form class="example-form">
+                <mat-card-content>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Edad</mat-label>
+                        <input min="1" max="140" type="number" matInput placeholder="20" [(ngModel)]="edad" name="edad"
+                            required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Temperatura corporal</mat-label>
+                        <input min="36.1" max="42" type="number" matInput placeholder="36.1°C" [(ngModel)]="temperatura"
+                            name="temperatura" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <input maxlength="40" type="number" matInput placeholder="Presión arterial"
+                            [(ngModel)]="presion" name="presion" required>
+                    </mat-form-field>
+
+                    <!--   <p-button label="Agregar campo" icon="pi pi-plus" (click)="AgregarCampo()"></p-button>
+                    <div *ngFor="let campo of lista">
+                        <mat-form-field class="example-full-width">
+                            <input type="text" matInput placeholder="Nombre del campo" name="clave" [(ngModel)]="campo.clave">
+
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width" >
+                            <input type="text" matInput placeholder="Nombre del campo" name="valor" [(ngModel)]="campo.valor">
+                        </mat-form-field>
+                    </div> -->
+
+
+                </mat-card-content>
+
+                <button mat-raised-button color="primary" class="btn-block" (click)="cargar()">Cargar reseña</button>
+
+            </form>
+        </mat-card>
+    </div>
+
+    <p-toast position="bottom-center"></p-toast>
+</body>

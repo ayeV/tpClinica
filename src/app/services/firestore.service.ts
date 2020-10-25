@@ -6,6 +6,8 @@ import * as firebase from 'firebase';
 import { AuthenticationService } from './authentication-service';
 import { useAnimation } from '@angular/animations';
 import { Turno } from '../classes/turno';
+import { Resena } from '../classes/Resena';
+import { Encuesta } from '../classes/encuesta';
 
 
 @Injectable({
@@ -57,6 +59,31 @@ export class FirestoreService {
      
   }
 
+  
+  postResena(id,resena: Resena) {
+    return this.db.collection("resenas").doc(id).set({
+      paciente: resena.paciente,
+      medico:resena.medico,
+      temperatura:resena.temperatura,
+      edad:resena.edad,
+      presion:resena.presion
+    });
+     
+  }
+
+  postEncuesta(id,encuesta: Encuesta) {
+    return this.db.collection("encuestas").doc(id).set({
+      paciente: encuesta.paciente,
+      medico:encuesta.medico,
+      puntuacionAtencion:encuesta.puntuacionAtencion,
+      comentario:encuesta.comentario,
+      estaConforme:encuesta.estaConforme
+    });
+     
+  }
+
+
+
 
 
   
@@ -89,6 +116,13 @@ export class FirestoreService {
     },{merge: true});
   }
 
+  updateTurnoState(id,estado)
+  {
+    return this.db.collection('turnos').doc(id).set({
+      estado: estado,
+    },{merge: true});
+  }
+
 
 
   
@@ -96,6 +130,24 @@ export class FirestoreService {
    return this.db.collection("users").get();
 
   }
+
+  getResenas() {
+    return this.db.collection("resenas").get();
+ 
+   }
+
+   
+  getEncuestas() {
+    return this.db.collection("encuestas").get();
+ 
+   }
+  
+  
+  getTurnos() {
+    return this.db.collection("turnos").get();
+ 
+   }
+ 
 
   getLoggedUser(uid){
     return this.db.collection("users").doc(uid).snapshotChanges();

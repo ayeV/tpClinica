@@ -6,8 +6,8 @@ export class Turno {
     public especialidad:string;
     public estado:string;
     public paciente;
-
-    constructor(medico, fecha, horario, especialidad,paciente)
+    public id;
+    constructor(medico, fecha, horario, especialidad,paciente,id=null)
     {
         this.medico = medico;
         this.fecha = fecha,
@@ -15,6 +15,10 @@ export class Turno {
         this.horario = horario,
         this.estado = "Pendiente";
         this.paciente = paciente;
+        if(id != null)
+        {
+            this.id = id;
+        }
     }
 
 

@@ -1,24 +1,7 @@
-<header>
-    <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-         
-          <li class="nav-item active">
-            <button pButton type="button" icon="pi pi-home" class="p-button-raised p-button-rounded" [routerLink]="['']" routerLinkActive="router-link-active" ></button>
-          </li>
-        </ul>
-        <form class="form-inline mt-2 mt-md-0">
-          <button pButton type="button" icon="pi pi-sign-out" class="p-button-raised p-button-rounded" (click)="logOut()" ></button>
-        </form>
-      </div>
-    </nav>
-  </header>
+<app-menu></app-menu>
 
-<div  style="margin-top: 3%;" *ngIf="loggedUser && !cargando">
-    <p-table [globalFilterFields]="['paciente','estado']"  [columns]="cols" [value]="turnos" [paginator]="true" [rows]="10" >
+<div  style="margin-top: 3%;" *ngIf="!cargando && loggedUser ">
+    <p-table [globalFilterFields]="['paciente.lastName','estado']"  [columns]="cols" [value]="turnos" [paginator]="true" [rows]="10" >
       <ng-template pTemplate="caption"  >
         <div class="table-header">
             Lista de turnos
@@ -39,18 +22,29 @@
           </th>
           </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-turno let-columns="columns">
+      <ng-template pTemplate="body"  let-turno>
           <tr [ngClass]="{'fila': true}">
-            <td *ngFor="let col of columns" >
-              {{turno[col.field]}}
-            </td>
+            <td>{{turno.paciente.firstName}} {{turno.paciente.lastName}}</td>
+            <td>{{turno.medico.name}}</td>
+            <td>{{turno.estado}}</td>
+            <td>{{turno.fecha}}</td>
+            <td>{{turno.horario}}</td>
             <td style="text-align: center">
-              <button pButton type="button" icon="pi pi-check" class="p-button-raised p-button-rounded" *ngIf="loggedUser.role == 'medico'"  pTooltip="Tomar turno"></button>
-              <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"  pTooltip="Cancelar turno"></button>
+              <button *ngIf="turno.estado == 'Pendiente' && loggedUser.role == 'medico'" pButton type="button" icon="pi pi-check" class="p-button-raised p-button-rounded"   pTooltip="Confirmar turno" (click)="AceptarTurno(turno)"></button>
+              <button *ngIf="turno.estado == 'Confirmado' && loggedUser.role == 'medico'" pButton type="button" icon="pi pi-lock" class="p-button-rounded p-button-success"  pTooltip="Cerrar turno" (click)="CerrarTurno(turno)"></button>
+              <button *ngIf="turno.estado == 'Confirmado' || turno.estado == 'Pendiente'" pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"  pTooltip="Cancelar turno" (click)="CancelarTurno(turno)"></button>
+
+              <button *ngIf="turno.estado=='Cerrado'" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-help"  (click)="show(turno.id)" pTooltip="Ver reseña"></button>
+              <button *ngIf="turno.estado=='Cerrado' && loggedUser.role == 'medico'" pButton type="button" icon="pi pi-info-circle" class="p-button-rounded p-button-info"  (click)="showEncuesta(turno.id)" pTooltip="Ver encuesta"></button>
+              <button *ngIf="turno.estado == 'Cerrado' && loggedUser.role == 'paciente'" pButton type="button" icon="pi pi-star" class="p-button-rounded p-button-warning"  pTooltip="Cargar encuesta" (click)="cargarEncuesta(turno)"></button>
+
+
           </td>
           </tr>
       </ng-template>
   </p-table>
+  <p-toast position="bottom-center"></p-toast>
+
   </div>
   
    

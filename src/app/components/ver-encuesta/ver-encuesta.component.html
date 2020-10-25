@@ -1,0 +1,9 @@
+<div *ngIf="data">
+    <h2 style="color: blue;">Paciente: {{data.paciente.nombre}}</h2>
+    <h2 style="color: blue;">Médico: {{data.medico.nombre}}</h2>
+    <p style="color:rgb(179, 164, 36)">Calificación: {{data.puntuacionAtencion}} estrellas</p>
+    <p style="color: green;">El paciente volvería a atenderse con el profesional: {{data.estaConforme}}</p>
+
+    <p style="color: green;">Comentarios: {{data.comentario}}</p>
+
+</div>

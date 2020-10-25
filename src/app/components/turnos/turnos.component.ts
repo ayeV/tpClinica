@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { AuthenticationService } from 'src/app/services/authentication-service';
 import { FirestoreService } from 'src/app/services/firestore.service';
-import {Turno} from 'src/app/classes/turno';
+import { Turno } from 'src/app/classes/turno';
 import { MessageService } from 'primeng/api';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-turnos',
@@ -21,9 +21,6 @@ export class TurnosComponent implements OnInit {
   maxDate: Date;
 
   public especialidades = ['Oftamología', 'Cardiología', 'Pediatría', 'Neumonología'];
-  public horarios = ['9:00', '9:30', '10:00'];
-
-  toppings = new FormControl();
   private _medicos = [];
   public medicos = [];
   public estaCargando = true;
@@ -31,10 +28,12 @@ export class TurnosComponent implements OnInit {
   public fecha;
   public diasDisponibles = [];
   public medicoSeleccionado;
-  public turnos= [];
+  public turnos = [];
+  public _turnos = [];
   public turnoSeleccionado;
-  public loggedUser;
-  constructor(private router: Router, private authService: AuthenticationService, private db: FirestoreService, private messageService:MessageService) {
+  public loggedUser: any;
+  public turnosPedidos = [];
+  constructor(private router: Router, private authService: AuthenticationService, private db: FirestoreService, private messageService: MessageService) {
     var today = new Date();
     var year = today.getFullYear();
     this.minDate = new Date(year, today.getMonth(), today.getDate());
@@ -45,15 +44,15 @@ export class TurnosComponent implements OnInit {
   ngOnInit(): void {
     this.getMedicos();
     this.getLoggedUser();
+    this.getTurnos();
   }
 
-  getLoggedUser()
-  {
-    
-    this.db.getLoggedUser(this.authService.userLoggedIn.uid).subscribe((res:any) =>
-    {
+  getLoggedUser() {
+
+    this.db.getLoggedUser(this.authService.userLoggedIn.uid).subscribe((res: any) => {
       this.estaCargando = false;
       this.loggedUser = res.payload.data();
+      this.loggedUser['uid'] = this.authService.userLoggedIn.uid;
     });
   }
 
@@ -69,7 +68,27 @@ export class TurnosComponent implements OnInit {
     }
   }
 
+  getTurnos() {
+    let turnos = [];
+    this.db.getTurnos().subscribe(x => {
+      x.forEach(item => {
+        turnos.push({
+          especialidad: item.data().especialidad,
+          estado: item.data().estado,
+          fecha: item.data().fecha,
+          horario: item.data().horario,
+          medico: item.data().medico,
+          paciente: item.data().paciente
+        });
+      });
+      this.estaCargando = false;
+      this.turnosPedidos = turnos.filter(x => {
+        return x.estado == 'Pendiente' || x.estado == 'Confirmado'
+      });
+      console.log(this.turnosPedidos);
+    });
 
+  }
 
   getMedicos() {
     let usuarios = [];
@@ -94,6 +113,8 @@ export class TurnosComponent implements OnInit {
 
 
   buscar() {
+    var turnosTemp = [];
+    this._turnos = [];
     var a = new Date(this.fecha);
     var weekdays = new Array(7);
     weekdays[0] = "Domingo";
@@ -104,7 +125,6 @@ export class TurnosComponent implements OnInit {
     weekdays[5] = "Viernes";
     weekdays[6] = "Sábado";
     var dia = weekdays[a.getDay()];
-    console.log("fecha: " + dia);
     var medicos = this.medicos.filter((x) => {
       if (x.uid == this.medicoSeleccionado.uid) {
         let lista = x.diasQueTrabaja.map((z) => {
@@ -138,52 +158,58 @@ export class TurnosComponent implements OnInit {
         });
       });
 
+      turnosTemp = this.turnosPedidos.filter((x) => {
+        return x.medico.uid == this.medicoSeleccionado.uid && x.fecha.toDate().getTime() == a.getTime();
+      });
+      console.log("turnos temp", turnosTemp);
+
       while (startingTime < endingTime) {
 
-        this.turnos.push(new Turno(medicos[0],a.toLocaleDateString(),startingTime.format("h:mm"),this.especialidad,this.loggedUser));
-        startingTime.add(duracion,'minute');
+        this._turnos.push(new Turno(medicos[0], a, startingTime.format("H:mm"), this.especialidad, this.loggedUser));
+        startingTime.add(duracion, 'minute');
 
       }
+      this.turnos = this._turnos.filter((x) => {
+
+        let retorno = true;
+        turnosTemp.forEach((y) => {
+          if (y.horario == x.horario) {
+            retorno = false;
+          }
+
+        });
+        return retorno;
+      });
 
 
     }
 
-console.log(this.turnos)
 
   }
 
 
   Confirm() {
-    debugger;
-    if(this.turnoSeleccionado != null)
-    {
-      this.db.postTurno(this.turnoSeleccionado).then((res)=>
-      {
+    this.messageService.clear();
+    if (this.turnoSeleccionado != null) {
+      this.db.postTurno(this.turnoSeleccionado).then((res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Tu turno ha sido guardado.' });
+        this.medicoSeleccionado = null;
+        this.especialidad = null;
+        this.fecha = null;
+        this.turnoSeleccionado = null;
 
-      }).catch(x=>
-        {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha ocurrido un error, vuelve a intentarlo mas tarde.' });
+      }).catch(x => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha ocurrido un error, vuelve a intentarlo mas tarde.' });
 
-        });
-      
+      });
+
+    }
+    else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor ingrese todos los campos requeridos.' });
+
     }
   }
 
-  logOut() {
-    this.authService.SignOut().then((res) => {
-      this.router.navigate(['/Login']);
-    }).catch((ex) => {
-      console.log(ex);
-
-    });
-
-  }
-
-  Cancel() {
-    this.router.navigate(['']);
-
-  }
 
 
 }
