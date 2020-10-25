@@ -159,6 +159,7 @@ export class FirestoreService {
     return this.db.collection('users').doc(uid).update(
       {
          diasQueTrabaja: user.diasQueTrabaja,
+         specialities: user.specialities
       },
     )
 

@@ -1,4 +1,3 @@
-<app-menu></app-menu>
 
 <body>
     <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="loggedUser">
@@ -66,14 +65,20 @@
                        <div *ngFor="let item of loggedUser.specialities">
                            <div>
                             <mat-label>{{item.especialidad}}: </mat-label>
-
                            </div>
-                        <mat-form-field appearance="fill">
-                            <mat-select  (openedChange)="comboChange($event)"  [(value)]= "item.duracion">
-                                <mat-option *ngFor="let time of times" [value]="time">
-                                    {{time}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                           <div>
+                            <mat-form-field appearance="fill">
+                                <mat-select [(ngModel)]="item.duracion" name="duracion" >
+                                    <mat-option  [value]="30">
+                                       30</mat-option>
+                                       <mat-option  [value]="60">
+                                        60</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                           </div>
+
+
+
                        </div>
                     </section>
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthenticationService } from 'src/app/services/authentication-service';
 import { FirestoreService } from 'src/app/services/firestore.service';
@@ -22,8 +23,8 @@ export class AdminMedicoComponent implements OnInit {
   public diasDeSemanaHasta;
   public dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
   public times = ["30", "60"];
-
-  constructor(private db: FirestoreService, private authService: AuthenticationService, private messageService: MessageService) { }
+  public duraciones;
+  constructor(private db: FirestoreService, private authService: AuthenticationService, private messageService: MessageService,private router:Router) { }
 
   ngOnInit(): void {
     this.getLoggedUser();
@@ -111,22 +112,17 @@ export class AdminMedicoComponent implements OnInit {
     }
     let obj =
     {
+      specialities: this.loggedUser.specialities,
       diasQueTrabaja: this.diasSeleccionados
-
+     
     };
 
     return obj;
   }
 
   Cancel() {
-    this.toppings.setValue(null);
-    this.diasSeleccionados = null;
-    this.diasDeSemanaHasta = null;
-    this.diasDeSemanaDesde = null;
-    this.horarioSabadosDesde = null;
-    this.horarioSabadosHasta = null;
-    this.trabajaLosSabados = false;
-
+   
+    this.router.navigate(['']);
   }
 
 }
