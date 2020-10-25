@@ -159,13 +159,14 @@ export class TurnosComponent implements OnInit {
       });
 
       turnosTemp = this.turnosPedidos.filter((x) => {
+        debugger;
         return x.medico.uid == this.medicoSeleccionado.uid && x.fecha.toDate().getTime() == a.getTime();
       });
       console.log("turnos temp", turnosTemp);
 
       while (startingTime < endingTime) {
 
-        this._turnos.push(new Turno(medicos[0], a, startingTime.format("H:mm"), this.especialidad, this.loggedUser));
+        this._turnos.push(new Turno(medicos[0], a , startingTime.format("H:mm"), this.especialidad, this.loggedUser));
         startingTime.add(duracion, 'minute');
 
       }
@@ -193,6 +194,8 @@ export class TurnosComponent implements OnInit {
     if (this.turnoSeleccionado != null) {
       this.db.postTurno(this.turnoSeleccionado).then((res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Tu turno ha sido guardado.' });
+        this.turnosPedidos = [];
+        this.getTurnos();
         this.medicoSeleccionado = null;
         this.especialidad = null;
         this.fecha = null;

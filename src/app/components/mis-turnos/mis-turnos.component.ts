@@ -5,11 +5,12 @@ import { Table } from 'primeng/table';
 import { AuthenticationService } from 'src/app/services/authentication-service';
 import { TurnosService } from 'src/app/services/turnos.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-
+import { NotificationService } from 'src/app/services/notification.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Turno } from 'src/app/classes/turno';
 import { VerResenaComponent } from '../ver-resena/ver-resena.component';
 import { VerEncuestaComponent } from '../ver-encuesta/ver-encuesta.component';
+import { Notificacion } from 'src/app/classes/notificacion';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -33,7 +34,8 @@ export class MisTurnosComponent implements OnInit {
     private router: Router,
     private messageService: MessageService,
     private turnosService: TurnosService,
-    public dialogService: DialogService) {
+    public dialogService: DialogService,
+    public notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -197,7 +199,7 @@ export class MisTurnosComponent implements OnInit {
 
   AceptarTurno(turno) {
     this.messageService.clear();
-
+    turno.estado = "Confirmado";
     this.db.updateTurnoState(turno.id, "Confirmado").then((data: any) => {
       let listaModificada = [];
       for (let i = 0; i < this.turnos.length; i++) {
@@ -210,7 +212,15 @@ export class MisTurnosComponent implements OnInit {
 
       }
       this.turnos = listaModificada;
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Turno aceptado correctamente.' });
+      let mensaje = `Su turno con ${turno.medico.name} para la fecha ${turno.fecha} ha sido CONFIRMADO`;
+      let notificacion = new Notificacion(mensaje, turno.medico.name, turno.medico.uid, turno.paciente.firstName + " " + turno.paciente.lastName, turno.paciente.uid,
+        turno.fecha, false,turno.paciente.uid);
+      this.notificationService.postNotificacion(notificacion).then(() => {
+        console.log("Notificacion guardada");
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Turno aceptado correctamente.' });
+      });
+
+
     }).catch(err => {
       this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Ha ocurrido un error, vuelve a intentarlo mas tarde.' });
 
@@ -220,7 +230,7 @@ export class MisTurnosComponent implements OnInit {
 
   CancelarTurno(turno) {
     this.messageService.clear();
-
+    turno.estado = "Cancelado";
     this.db.updateTurnoState(turno.id, "Cancelado").then((data: any) => {
       let listaModificada = [];
       for (let i = 0; i < this.turnos.length; i++) {
@@ -233,7 +243,22 @@ export class MisTurnosComponent implements OnInit {
 
       }
       this.turnos = listaModificada;
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Turno cancelado correctamente.' });
+      let mensaje;
+      let notificacion;
+      if (this.loggedUser.role == 'paciente') {
+        mensaje = `Su turno con ${turno.paciente.firstName + " " + turno.paciente.lastName} para la fecha ${turno.fecha} ha sido CANCELADO`;
+        notificacion = new Notificacion(mensaje, turno.medico.name, turno.medico.uid, turno.paciente.firstName + " " + turno.paciente.lastName, turno.paciente.uid,
+          turno.fecha, false, turno.medico.uid);
+      }
+      else {
+        mensaje = `Su turno con ${turno.medico.name} para la fecha ${turno.fecha} ha sido CANCELADO`;
+        notificacion = new Notificacion(mensaje, turno.medico.name, turno.medico.uid, turno.paciente.firstName + " " + turno.paciente.lastName, turno.paciente.uid,
+          turno.fecha, false, turno.paciente.uid);
+      }
+
+      this.notificationService.postNotificacion(notificacion).then(() => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Turno cancelado correctamente.' });
+      });
     }).catch(err => {
       this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Ha ocurrido un error, vuelve a intentarlo mas tarde.' });
 
@@ -244,7 +269,7 @@ export class MisTurnosComponent implements OnInit {
 
   CerrarTurno(turno) {
     this.messageService.clear();
-
+    turno.estado = "Cerrado"
     this.db.updateTurnoState(turno.id, "Cerrado").then((data: any) => {
       let listaModificada = [];
       for (let i = 0; i < this.turnos.length; i++) {
