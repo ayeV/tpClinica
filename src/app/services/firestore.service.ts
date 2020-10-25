@@ -6,7 +6,7 @@ import * as firebase from 'firebase';
 import { AuthenticationService } from './authentication-service';
 import { useAnimation } from '@angular/animations';
 import { Turno } from '../classes/turno';
-import { Resena } from '../classes/Resena';
+import { Resena } from '../classes/resena';
 import { Encuesta } from '../classes/encuesta';
 
 
