@@ -5,9 +5,10 @@ import { AuthenticationService } from 'src/app/services/authentication-service';
 import { AlertService } from 'src/app/services/alertService';
 
 import { Usuario } from './../../classes/user';
-import { isThisTypeNode } from 'typescript';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { MessageService } from 'primeng/api';
+
+const SITEKEY = "6Lc-VtsZAAAAAD8YkQNmIp_7SayLdkOiVXIHcNkQ";
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ import { MessageService } from 'primeng/api';
 })
 export class LoginComponent implements OnInit {
 
+  
   public user = new Usuario();
   logeando = true;
   public estaCargando = true;
@@ -105,6 +107,11 @@ export class LoginComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  showResponse(event)
+  {
+
   }
 
 }

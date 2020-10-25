@@ -4,12 +4,13 @@
 
   </div>
   <header *ngIf="loggedUser">
+
     <nav class="navbar navbar-expand-md  navbar-dark bg-primary fixed-top ">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
           <li class="nav-item active">
@@ -20,7 +21,7 @@
             <a class="nav-link" [routerLink]="['/AdminUsuarios']" routerLinkActive="router-link-active">Administrar
               usuarios</a>
           </li>
-          <li class="nav-item active" *ngIf="loggedUser.role == 'medico'">
+          <li class="nav-item active" *ngIf="loggedUser.role == 'medico' && loggedUser.state == 'Aceptado'">
             <a class="nav-link" [routerLink]="['/MisHorarios']" routerLinkActive="router-link-active">Administrar
               horarios</a>
           </li>
@@ -109,22 +110,23 @@
       <!-- /END THE FEATURETTES -->
 
     </div><!-- /.container -->
-   
-<p-toast position="bottom-center" [baseZIndex]="5000">
-  <ng-template let-message pTemplate="message">
-      <div class="p-flex p-flex-column" style="flex: 1">
+
+    <p-toast position="bottom-center" [baseZIndex]="5000">
+      <ng-template let-message pTemplate="message">
+        <div class="p-flex p-flex-column" style="flex: 1">
           <div class="p-text-center">
-              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-              <p>{{message.detail}}</p>
+            <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+            <p>{{message.detail}}</p>
           </div>
           <div class="p-grid p-fluid">
-              <div class="p-col-6">
-                  <button type="button" pButton (click)="close(message)"  label="Marcar como leído" class="p-button-success"></button>
-              </div>
+            <div class="p-col-6">
+              <button type="button" pButton (click)="close(message)" label="Marcar como leído"
+                class="p-button-success"></button>
+            </div>
           </div>
-      </div>
-  </ng-template>
-</p-toast>
+        </div>
+      </ng-template>
+    </p-toast>
 
 
 

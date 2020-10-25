@@ -1,7 +1,7 @@
 <body>
 
     <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-        <mat-card >
+        <mat-card>
             <mat-card-header>
                 <mat-card-title>Registrarse</mat-card-title>
             </mat-card-header>
@@ -38,16 +38,18 @@
 
                     <div *ngIf="user.role == 'paciente'">
                         <label for="exampleFormControlFile1">Foto 1</label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1"  name="photo1" (change)="onSelectFile($event)">
-    
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="photo1"
+                            (change)="onSelectFile($event)">
+
                         <label for="exampleFormControlFile1">Foto 2</label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1"  name="photo2" (change)="onSelectFile2($event)" >
-    
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="photo2"
+                            (change)="onSelectFile2($event)">
+
                     </div>
-                   
+
                     <mat-form-field appearance="fill" *ngIf="user.role == 'medico'">
                         <mat-label>Especialidades</mat-label>
-                        <mat-select  multiple  (openedChange)="comboChange($event)" [formControl]="toppings">
+                        <mat-select multiple (openedChange)="comboChange($event)" [formControl]="toppings">
                             <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad">
                                 {{especialidad}}</mat-option>
                         </mat-select>
@@ -58,9 +60,11 @@
 
 
                 </mat-card-content>
+                <p-captcha siteKey="6Lc-VtsZAAAAAD8YkQNmIp_7SayLdkOiVXIHcNkQ" (onResponse)="showResponse($event)">
+                </p-captcha>
 
-                <button  mat-raised-button color="primary"  class="btn-block" (click)="Register()">Registrarse</button>
-                <button  mat-raised-button color="warn"  class="btn-block" (click)="Cancel()">Cancelar</button>
+                <button mat-raised-button color="primary" class="btn-block" (click)="Register()">Registrarse</button>
+                <button mat-raised-button color="warn" class="btn-block" (click)="Cancel()">Cancelar</button>
 
             </form>
         </mat-card>

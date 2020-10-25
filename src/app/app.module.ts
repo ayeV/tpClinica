@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
+
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -67,6 +68,7 @@ import { VerEncuestaComponent } from './components/ver-encuesta/ver-encuesta.com
 import {RatingModule} from 'primeng/rating';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {CaptchaModule} from 'primeng/captcha';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,7 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     CargarEncuestaComponent,
     VerEncuestaComponent
   ],
-  imports: [
+  imports: [CaptchaModule,
     RadioButtonModule,
     InputTextareaModule,
     RatingModule,
