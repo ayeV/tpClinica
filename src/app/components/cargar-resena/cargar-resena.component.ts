@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Resena } from 'src/app/classes/Resena';
+import { Resena } from 'src/app/classes/resena';
 import { Turno } from 'src/app/classes/turno';
 import { AuthenticationService } from 'src/app/services/authentication-service';
 import { FirestoreService } from 'src/app/services/firestore.service';
