@@ -1,31 +1,3 @@
-# TpClinica
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.8.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
 ## Como usar la app
 
 Primero el usuario debe loguearse con su email y clave, en caso de no tener usuario debe clickear en Registrarse.
@@ -44,6 +16,14 @@ En dicha sección tendra una lista de médicos para poder aceptar o rechazar en 
 ## Perfil de paciente
 El paciente tendrá secciones especiales como las que se ven remarcadas en rojo en la siguiente captura de pantalla:
 ![s3](https://github.com/ayeV/tpClinica/blob/main/screenshots/s3.png)
+Para pedir un turno primero debe elegir la especialidad médica, la fecha, y el profesional. Una vez seleccionados estos campos deberá hacer click en el botón de búsqueda para que se 
+llene el combo de horarios y asi poder elegir uno.
+![s6](https://github.com/ayeV/tpClinica/blob/main/screenshots/s8.png)
+En la sección Mis Turnos se podrá cancelar un turno, siempre y cuando no se haya concretado la consulta, se podrá cargar una encuesta para aquellos turnos que ya han sucedido asi 
+también como ver la reseña cargada por el profesional.
+![misTurnosPaciente](https://github.com/ayeV/tpClinica/blob/main/screenshots/misTurnosPaciente.png)
+
+
 
 
 ## Perfil de médico
@@ -52,4 +32,6 @@ El médico al igual que el paciente tambien tendrá una sección de Mis Turnos c
 
 Si entra a la sección mencionada anteriormente podrá ver lo siguiente:
 ![s5](https://github.com/ayeV/tpClinica/blob/main/screenshots/s5.png)
-En la columna acciones podrá cancelar o aceptar un turno.
+En la columna acciones podrá cancelar,cerrar o confirmar un turno, cargar una reseña y ver la encuesta que haya completado el paciente.
+El médico tiene una sección para administrar sus horarios:
+![s5](https://github.com/ayeV/tpClinica/blob/main/screenshots/adminHorarios.png)
