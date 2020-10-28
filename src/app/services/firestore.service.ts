@@ -90,7 +90,7 @@ export class FirestoreService {
   uploadFile(dataUrl) {
     var fileName = `${new Date().getTime()}photo`;
     var ref = firebase.storage().ref().child("pacientes/" + fileName);
-
+     this.storageRef = ref;
      this.uploadTask = ref.putString(dataUrl, 'data_url');
      return this.uploadTask;
   }

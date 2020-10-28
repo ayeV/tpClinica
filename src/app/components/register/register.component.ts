@@ -47,7 +47,6 @@ export class RegisterComponent implements OnInit {
 
       reader.onload = (event) => {
         this.user.photo1 = event.target.result.toString();
-        console.log(this.user.photo1);
       }
     }
   }
@@ -60,7 +59,6 @@ export class RegisterComponent implements OnInit {
 
       reader.onload = (event) => {
         this.user.photo2 = event.target.result.toString();
-        console.log(this.user.photo2);
       }
     }
   }
@@ -91,6 +89,7 @@ export class RegisterComponent implements OnInit {
               },
               () => {
                 this.dbService.uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                  this.dbService.storageRef.updateMetadata(this.getMetaData());
                   this.dbService.updateUserPhoto1(this.authService.userData.uid, downloadURL).then(() => {
 
                     console.log("termino");
@@ -98,6 +97,7 @@ export class RegisterComponent implements OnInit {
                       (error) => { },
                       () => {
                         this.dbService.uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                          this.dbService.storageRef.updateMetadata(this.getMetaData());
                           this.dbService.updateUserPhoto2(this.authService.userData.uid, downloadURL).then(() => {
                             console.log("Registro exitoso");
                             this.messageService.add({ severity: 'success', summary: '', detail: "Registro exitoso" });
@@ -195,6 +195,17 @@ export class RegisterComponent implements OnInit {
     if (event) {
       this.response = event.response;
     }
+  }
+
+  getMetaData()
+  {
+   return  {
+      customMetadata: {
+        'lastName': this.user.lastName,
+        'firstName': this.user.firstName
+      }
+    }
+    
   }
 
 }
