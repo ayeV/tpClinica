@@ -15,9 +15,9 @@ import { TurnosComponent } from './components/turnos/turnos.component';
 import {AuthGuard} from  './services/auth-guard.service';
 
 const routes: Routes = [
-  { path: 'Login', component: LoginComponent},
+  { path: 'Login', component: LoginComponent,  data: {animation: 'Login' }},
   { path: 'Registro', component: RegisterComponent},
-  { path: '', component: HomeComponent ,canActivate: [AuthGuard]},
+  { path: '', component: HomeComponent ,canActivate: [AuthGuard], data: {animation: 'Home' }},
   { path: 'PedirTurno', component: TurnosComponent, canActivate: [AuthGuard]},
   { path: 'MisTurnos', component: MisTurnosComponent, canActivate: [AuthGuard]},
   { path: 'EmailVerificado', component: EmailVerificationComponent},

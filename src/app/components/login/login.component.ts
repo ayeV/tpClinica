@@ -38,39 +38,48 @@ export class LoginComponent implements OnInit {
 
   Login() {
     this.messageService.clear();
-    if (this.user.email != '' && this.user.password != '') {
-      this.authService.SignIn(this.user.email, this.user.password).then((res) => {
-        this.db.getLoggedUser(this.authService.userLoggedIn.uid).subscribe((data) => {
-          let user: any = data.payload.data();
-          if (user.role != 'admin') {
-            if (this.authService.userLoggedIn.emailVerified) {
-              this.router.navigate(['']);
+    if(this.user.email != null && this.user.password != null)
+    {
+      if (this.user.email != '' && this.user.password != '') {
+        this.authService.SignIn(this.user.email, this.user.password).then((res) => {
+          this.db.getLoggedUser(this.authService.userLoggedIn.uid).subscribe((data) => {
+            let user: any = data.payload.data();
+            if (user.role != 'admin') {
+              if (this.authService.userLoggedIn.emailVerified) {
+                this.router.navigate(['']);
+              }
+              else {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debes verificar tu email para poder iniciar sesión.' });
+  
+              }
             }
             else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debes verificar tu email para poder iniciar sesión.' });
-
+              this.router.navigate(['']);
+  
             }
-          }
-          else {
-            this.router.navigate(['']);
-
-          }
+          });
+  
+  
+  
+        }).catch((ex) => {
+          console.log(ex);
+          this.errorMessage = this.ErrorMessageBuilder(ex.code);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: this.errorMessage });
+  
         });
-
-
-
-      }).catch((ex) => {
-        console.log(ex);
-        this.errorMessage = this.ErrorMessageBuilder(ex.code);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: this.errorMessage });
-
-      });
+      }
+      else
+      {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ingrese su email y clave para poder iniciar sesión.' });
+  
+      }
     }
     else
     {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ingrese su email y clave para poder iniciar sesión.' });
 
     }
+  
   }
 
   ErrorMessageBuilder(firebaseCode) {

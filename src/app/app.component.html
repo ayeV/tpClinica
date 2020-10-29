@@ -1,5 +1,5 @@
-
 <app-alerta></app-alerta>
 
-
-<router-outlet></router-outlet>
+<div class="route" [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>
