@@ -1,73 +1,96 @@
 <app-menu></app-menu>
-<div style="margin-top: 2%;">
-    <p-fieldset legend="Importante" [toggleable]="true">
-        Para solicitar un turno primero debe especificar la especialidad médica con la cual desea atenderse, el profesional y la fecha.
-        Luego debe clickear en el botón de búsqueda y elegir el horario deseado.
-        Finalmente clickear en el botón Confimar para guardar el turno.
-    </p-fieldset>
-    
-</div>
-      
 
 <body>
-  
     <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center" *ngIf="!estaCargando">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Solicitar turno</mat-card-title>
-            </mat-card-header>
-
-
-            <form class="example-form">
-
-                <mat-card-content>
-                    <mat-form-field appearance="fill" pTooltip="Area médica con la que quiere atenderse">
-                        <mat-label>Especialidad</mat-label>
-                        <mat-select [(ngModel)]="especialidad" (openedChange)="comboChange($event)"  required name="especialidad">
-                            <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad">
-                                {{especialidad}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-
-                    <mat-form-field class="example-full-width" appearance="fill"
-                        pTooltip="Fecha del turno">
-                        <mat-label>Fecha</mat-label>
-                        <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [(ngModel)]="fecha"
-                            name="fecha" [min]="minDate" [max]="maxDate" required>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-
-                    <mat-form-field pTooltip="Médicos disponibles">
-                        <mat-label>Médico</mat-label>
-                        <mat-select [(ngModel)]="medicoSeleccionado" name="medicoSeleccionado" required>
-                            <mat-option *ngFor="let medico of medicos" [value]="medico">
-                                {{medico.name}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Elija la especialidad <br>
+                        <label *ngIf="especialidad">{{especialidad}}</label>
+                    </ng-template>
+                    <mat-list>
+                        <mat-list-item *ngFor="let item of especialidades" (click)="comboChange(item)" class="lista">
+                            {{item}} </mat-list-item>
+                    </mat-list>
+                    <input hidden formControlName="especialidad">
                     <div>
-                        <button pButton pRipple label="Buscar horarios"  (click)="buscar()" icon="pi pi-search"   styleClass="p-button-lg"></button>
+                        <button mat-button color="primary" matStepperNext>Siguiente</button>
                     </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>Elija el profesional <br>
+                        <label *ngIf="medicoSeleccionado">{{medicoSeleccionado.name}}</label>
+                    </ng-template>
+                    <mat-list>
+                        <mat-list-item *ngFor="let medico of medicos" (click)="obtenerDias(medico)" class="lista">
+                            {{medico.name}} </mat-list-item>
+                    </mat-list>
+                    <input hidden formControlName="medicoSeleccionado">
 
-                    <mat-form-field appearance="fill" >
-                        
-                        <mat-label>Horario</mat-label>
-                        <mat-select required [(ngModel)]="turnoSeleccionado" name="turnoSeleccionado" pTooltip="Horarios disponibles">
-                            <mat-option *ngFor="let horario of turnos" [value]="horario">
-                                {{horario.horario}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                    <div>
+                        <button mat-button color="primary" matStepperPrevious
+                            (click)="limpiarMedico()">Atras</button>
+                        <button mat-button color="primary" matStepperNext>Siguiente</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="thirdFormGroup">
+                <form [formGroup]="thirdFormGroup">
+                    <ng-template matStepLabel>Elija la fecha <br>
+                        <label *ngIf="fechaMostrar">{{fechaMostrar.toLocaleDateString()}}</label>
+                    </ng-template>
+                    <mat-list>
+                        <mat-list-item *ngFor="let fecha of diasDisponibles" class="lista"
+                            (click)="obtenerHorarios(fecha)"> {{fecha.toLocaleDateString()}} </mat-list-item>
+                    </mat-list>
+                    <input hidden formControlName="fecha">
 
+                    <div>
+                        <button mat-button color="primary" matStepperPrevious
+                            (click)="limpiarFecha()">Atras</button>
+                        <button mat-button color="primary" matStepperNext>Siguiente</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="fourFormGroup">
 
-                </mat-card-content>
+                <form [formGroup]="fourFormGroup">
+                    <ng-template matStepLabel>Elija el horario <br>
+                        <label *ngIf="turnoSeleccionado">{{turnoSeleccionado.horario}}</label>
+                    </ng-template>
+                    <mat-list>
+                        <mat-list-item *ngFor="let turno of turnos" (click)="asignarHorario(turno)" class="lista">
+                            {{turno.horario}} </mat-list-item>
+                    </mat-list>
+                    <input hidden formControlName="turnoSeleccionado">
 
-                <button mat-raised-button color="primary" class="btn-block" (click)="Confirm()">Confirmar</button>
-                <button mat-raised-button color="warn" class="btn-block" [routerLink]="['']" routerLinkActive="router-link-active" >Cancelar</button>
+                    <div>
+                        <button mat-button color="primary" matStepperPrevious
+                            (click)="limpiarTurno()">Atras</button>
+                        <button mat-button color="primary" matStepperNext>Siguiente</button>
+                    </div>
+                </form>
+            </mat-step>
 
-            </form>
-        </mat-card>
+            <mat-step>
+                <ng-template matStepLabel>Listo</ng-template>
+                <div *ngIf="turnoSeleccionado">
+                    <h1>Especialidad: {{turnoSeleccionado.especialidad}}</h1>
+                    <h1>Médico: {{turnoSeleccionado.medico.name}}</h1>
+                    <h1>Fecha: {{turnoSeleccionado.fecha.toLocaleDateString()}}</h1>
+                    <h1>Horario: {{turnoSeleccionado.horario}}</h1>
+                </div>
+                <div>
+                    <button mat-button color="primary" matStepperPrevious>Atras</button>
+                </div>
+                <div>
+                    <button mat-raised-button color="primary" (click)="Confirm()">Confirmar</button>
+
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
     </div>
-
     <p-toast position="bottom-center"></p-toast>
 </body>

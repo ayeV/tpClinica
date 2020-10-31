@@ -12,6 +12,15 @@ body {
 
 }
 
+mat-list {
+  overflow: auto;
+  max-height: 400px;
+}
+.lista:hover{
+  cursor: pointer;
+  background-color: rgb(161, 150, 230);
+}
+
 
 .example-radio-group {
     display: flex;

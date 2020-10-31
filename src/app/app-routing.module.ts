@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'Registro', component: RegisterComponent},
   { path: '', component: HomeComponent ,canActivate: [AuthGuard], data: {animation: 'Home' }},
   { path: 'PedirTurno', component: TurnosComponent, canActivate: [AuthGuard]},
-  { path: 'MisTurnos', component: MisTurnosComponent, canActivate: [AuthGuard]},
+  { path: 'MisTurnos', component: MisTurnosComponent, canActivate: [AuthGuard],data: {animation: 'MisTurnos' }},
   { path: 'EmailVerificado', component: EmailVerificationComponent},
   { path: 'AdminUsuarios', component: AdminUsersComponent,canActivate: [AuthGuard]},
   { path: 'AltaAdmin', component: AltaAdminComponent,canActivate: [AuthGuard]},

@@ -1,7 +1,7 @@
 <app-menu></app-menu>
 
-<div  style="margin-top: 3%;" *ngIf="!cargando && loggedUser ">
-    <p-table [globalFilterFields]="['paciente.lastName','estado']"  [columns]="cols" [value]="turnos" [paginator]="true" [rows]="10" >
+<div  style="margin-top: 3%;" *ngIf="!cargando && loggedUser" >
+    <p-table [globalFilterFields]="['paciente.lastName','estado']"  [columns]="cols" [value]="turnos" [paginator]="true" [rows]="10"  >
       <ng-template pTemplate="caption"  >
         <div class="table-header">
             Lista de turnos
@@ -31,7 +31,7 @@
             <td>{{turno.horario}}</td>
             <td style="text-align: center">
               <button *ngIf="turno.estado == 'Pendiente' && loggedUser.role == 'medico'" pButton type="button" icon="pi pi-check" class="p-button-raised p-button-rounded"   pTooltip="Confirmar turno" (click)="AceptarTurno(turno)"></button>
-              <button *ngIf="turno.estado == 'Confirmado' && loggedUser.role == 'medico'" pButton type="button" icon="pi pi-lock" class="p-button-rounded p-button-success"  pTooltip="Cerrar turno" (click)="CerrarTurno(turno)"></button>
+              <button *ngIf="turno.estado == 'Confirmado' && loggedUser.role == 'medico' && validarFecha(turno.fecha)" pButton type="button" icon="pi pi-lock" class="p-button-rounded p-button-success"  pTooltip="Cerrar turno" (click)="CerrarTurno(turno)"></button>
               <button *ngIf="turno.estado == 'Confirmado' || turno.estado == 'Pendiente'" pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"  pTooltip="Cancelar turno" (click)="CancelarTurno(turno)"></button>
 
               <button *ngIf="turno.estado=='Cerrado'" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-help"  (click)="show(turno.id)" pTooltip="Ver reseña"></button>
@@ -44,7 +44,7 @@
       </ng-template>
   </p-table>
   <p-toast position="bottom-center" ></p-toast>
-
+ 
   </div>
   
    

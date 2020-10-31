@@ -4,5 +4,10 @@
     <p style="color:green">Temperatura: {{data.temperatura}}</p>
     <p style="color: green;">Presion arterial: {{data.presion}}</p>
     <p style="color: green;">Edad: {{data.edad}} años</p>
-
+    <div *ngFor="let item of data.campos">
+        <p>{{item.clave}} : {{item.valor}}</p>
+    </div>
+    <button mat-raised-button color="primary" (click)="generatePdf()">
+        Descargar pdf
+    </button>
 </div>

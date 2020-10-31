@@ -66,7 +66,8 @@ export class FirestoreService {
       medico:resena.medico,
       temperatura:resena.temperatura,
       edad:resena.edad,
-      presion:resena.presion
+      presion:resena.presion,
+      campos:resena.campos
     });
      
   }
@@ -77,7 +78,8 @@ export class FirestoreService {
       medico:encuesta.medico,
       puntuacionAtencion:encuesta.puntuacionAtencion,
       comentario:encuesta.comentario,
-      estaConforme:encuesta.estaConforme
+      estaConforme:encuesta.estaConforme,
+      
     });
      
   }

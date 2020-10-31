@@ -29,7 +29,6 @@ export class CargarResenaComponent implements OnInit {
     private authService: AuthenticationService,
     private messageService: MessageService,
     ) { 
-    console.log(this.turno);
   }
 
   ngOnInit(): void {
@@ -56,6 +55,10 @@ export class CargarResenaComponent implements OnInit {
     });
 
   }
+  eliminarCampo(i)
+  {
+    this.lista.splice(i,1);
+  }
 
   cargar()
   {
@@ -63,13 +66,14 @@ export class CargarResenaComponent implements OnInit {
     if(this.presion != null && this.temperatura != null && this.edad != null)
     {
        let resena = new Resena(this.turno.medico.uid,this.turno.medico.name,this.turno.paciente.firstName +' '+ this.turno.paciente.lastName,this.turno.paciente.uid,
-        this.edad,this.temperatura,this.presion,this.turno.id);
+        this.edad,this.temperatura,this.presion,this.turno.id,this.lista);
         this.db.postResena(this.turno.id,resena).then((x)=>
         {
           this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Se ha guardado correctamente.' });
           this.edad = null;
           this.presion= null;
           this.temperatura =null;
+          this.lista = [];
 
         }).catch((x)=>{
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha ocurrido un error, vuelva a intentarlo mas tarde.' });

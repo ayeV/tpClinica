@@ -70,6 +70,10 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CaptchaModule} from 'primeng/captcha';
 
+
+import {MatStepperModule} from '@angular/material/stepper'; 
+import {StepsModule} from 'primeng/steps';
+
 @NgModule({
   declarations: [
     
@@ -91,7 +95,9 @@ import {CaptchaModule} from 'primeng/captcha';
     CargarEncuestaComponent,
     VerEncuestaComponent
   ],
-  imports: [CaptchaModule,
+  imports: [
+    StepsModule,
+    CaptchaModule,
     RadioButtonModule,
     InputTextareaModule,
     RatingModule,
@@ -142,6 +148,7 @@ import {CaptchaModule} from 'primeng/captcha';
     AngularFirestoreModule,
     MatExpansionModule,
     MatDialogModule,
+    MatStepperModule
   ],
   providers: [DialogService,DynamicDialogRef,DynamicDialogConfig,MessageService,
     {provide: MAT_DATE_LOCALE, useValue: 'es'},],

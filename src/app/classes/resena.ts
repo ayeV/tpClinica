@@ -6,9 +6,10 @@ export class Resena {
     public temperatura;
     public presion;
     public id;
+    public campos = [];
 
 
-    constructor(uidMedico,nombreMedico,nombrePaciente,uidPaciente,edad,temperatura,presion,id)
+    constructor(uidMedico,nombreMedico,nombrePaciente,uidPaciente,edad,temperatura,presion,id,campos)
     {
         this.medico = {
             nombre:nombreMedico,
@@ -25,5 +26,6 @@ export class Resena {
         {
             this.id = id;
         }
+        this.campos = campos;
     }
 }

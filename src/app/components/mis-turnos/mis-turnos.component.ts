@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -11,6 +11,8 @@ import { Turno } from 'src/app/classes/turno';
 import { VerResenaComponent } from '../ver-resena/ver-resena.component';
 import { VerEncuestaComponent } from '../ver-encuesta/ver-encuesta.component';
 import { Notificacion } from 'src/app/classes/notificacion';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -18,6 +20,7 @@ import { Notificacion } from 'src/app/classes/notificacion';
   styleUrls: ['./mis-turnos.component.css']
 })
 export class MisTurnosComponent implements OnInit {
+  @ViewChild('htmlData') htmlData: ElementRef;
   public turnos = [];
   public loggedUser: any;
   public cargando = true;
@@ -51,6 +54,14 @@ export class MisTurnosComponent implements OnInit {
 
   }
 
+  validarFecha(fecha) {
+    var fecha1 = new Date(fecha);
+    if (fecha1.getTime() < new Date(Date.now()).getTime() ) {
+      return true;
+    }
+    return false;
+
+  }
   getEncuestasMedico() {
     let encuestas = [];
     this.db.getEncuestas().subscribe(x => {
@@ -102,7 +113,8 @@ export class MisTurnosComponent implements OnInit {
           medico: item.data().medico,
           presion: item.data().presion,
           temperatura: item.data().temperatura,
-          id: item.id
+          id: item.id,
+          campos:item.data().campos
         });
       });
       this.cargando = false;
@@ -123,7 +135,8 @@ export class MisTurnosComponent implements OnInit {
           medico: item.data().medico,
           presion: item.data().presion,
           temperatura: item.data().temperatura,
-          id: item.id
+          id: item.id,
+          campos:item.data().campos
         });
       });
       this.cargando = false;
@@ -214,7 +227,7 @@ export class MisTurnosComponent implements OnInit {
       this.turnos = listaModificada;
       let mensaje = `Su turno con ${turno.medico.name} para la fecha ${turno.fecha} ha sido CONFIRMADO`;
       let notificacion = new Notificacion(mensaje, turno.medico.name, turno.medico.uid, turno.paciente.firstName + " " + turno.paciente.lastName, turno.paciente.uid,
-        turno.fecha, false,turno.paciente.uid);
+        turno.fecha, false, turno.paciente.uid);
       this.notificationService.postNotificacion(notificacion).then(() => {
         console.log("Notificacion guardada");
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Turno aceptado correctamente.' });
@@ -358,8 +371,6 @@ export class MisTurnosComponent implements OnInit {
 
   }
 
-
-
-
-
 }
+
+
