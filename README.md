@@ -16,9 +16,8 @@ En dicha sección tendra una lista de médicos para poder aceptar o rechazar en 
 ## Perfil de paciente
 El paciente tendrá secciones especiales como las que se ven remarcadas en rojo en la siguiente captura de pantalla:
 ![s3](https://github.com/ayeV/tpClinica/blob/main/screenshots/s3.png)
-Para pedir un turno primero debe elegir la especialidad médica, la fecha, y el profesional. Una vez seleccionados estos campos deberá hacer click en el botón de búsqueda para que se 
-llene el combo de horarios y asi poder elegir uno.
-![s6](https://github.com/ayeV/tpClinica/blob/main/screenshots/s8.png)
+Para pedir un turno primero debe elegir la especialidad médica, clickear en siguiente, elegir el profesional, siguiente, elegir la fecha y por ultimo el horario
+![s6](https://github.com/ayeV/tpClinica/blob/main/screenshots/s9.png)
 En la sección Mis Turnos se podrá cancelar un turno, siempre y cuando no se haya concretado la consulta, se podrá cargar una encuesta para aquellos turnos que ya han sucedido asi 
 también como ver la reseña cargada por el profesional.
 ![misTurnosPaciente](https://github.com/ayeV/tpClinica/blob/main/screenshots/misTurnosPaciente.png)
