@@ -31,6 +31,8 @@ export class MisTurnosComponent implements OnInit {
   public displayedColumns: string[] = ['Paciente', 'Médico', 'Estado', 'Fecha', 'Horario', 'Acciones'];
   public cols: any[];
   public tieneResena = false;
+  public filtro: any;
+  private _turnos = [];
   constructor(
     private db: FirestoreService,
     private authService: AuthenticationService,
@@ -49,14 +51,15 @@ export class MisTurnosComponent implements OnInit {
       { field: 'medico', header: 'Medico' },
       { field: 'estado', header: 'Estado' },
       { field: 'fecha', header: 'Fecha' },
-      { field: 'horario', header: 'Horario' }]
+      { field: 'horario', header: 'Horario' },
+    ]
 
 
   }
 
   validarFecha(fecha) {
     var fecha1 = new Date(fecha);
-    if (fecha1.getTime() < new Date(Date.now()).getTime() ) {
+    if (fecha1.getTime() < new Date(Date.now()).getTime()) {
       return true;
     }
     return false;
@@ -103,48 +106,7 @@ export class MisTurnosComponent implements OnInit {
     });
   }
 
-  getResenasMedico() {
-    let resenas = [];
-    this.db.getResenas().subscribe(x => {
-      x.forEach(item => {
-        resenas.push({
-          edad: item.data().edad,
-          paciente: item.data().paciente,
-          medico: item.data().medico,
-          presion: item.data().presion,
-          temperatura: item.data().temperatura,
-          id: item.id,
-          campos:item.data().campos
-        });
-      });
-      this.cargando = false;
-      this.resenas = resenas.filter(x => {
-        return x.medico.uid == this.loggedUser.uid;
-      });
-    });
-  }
 
-
-  getResenasPaciente() {
-    let resenas = [];
-    this.db.getResenas().subscribe(x => {
-      x.forEach(item => {
-        resenas.push({
-          edad: item.data().edad,
-          paciente: item.data().paciente,
-          medico: item.data().medico,
-          presion: item.data().presion,
-          temperatura: item.data().temperatura,
-          id: item.id,
-          campos:item.data().campos
-        });
-      });
-      this.cargando = false;
-      this.resenas = resenas.filter(x => {
-        return x.paciente.uid == this.loggedUser.uid;
-      });
-    });
-  }
 
   getLoggedUser() {
 
@@ -154,12 +116,10 @@ export class MisTurnosComponent implements OnInit {
       this.loggedUser['uid'] = this.authService.userLoggedIn.uid;
       if (this.loggedUser.role == 'medico') {
         this.getTurnosMedico();
-        this.getResenasMedico();
         this.getEncuestasMedico();
       }
       else {
         this.getTurnosPaciente();
-        this.getResenasPaciente();
         this.getEncuestasPaciente();
 
       }
@@ -178,13 +138,15 @@ export class MisTurnosComponent implements OnInit {
           horario: item.data().horario,
           medico: item.data().medico,
           paciente: item.data().paciente,
-          id: item.id
+          id: item.id,
+          resena: item.data().resena
         });
       });
       this.cargando = false;
-      this.turnos = turnos.filter(x => {
+      this._turnos = turnos.filter(x => {
         return x.medico.uid == this.loggedUser.uid;
       });
+      this.turnos = this._turnos;
     });
 
   }
@@ -200,13 +162,15 @@ export class MisTurnosComponent implements OnInit {
           horario: item.data().horario,
           medico: item.data().medico,
           paciente: item.data().paciente,
-          id: item.id
+          id: item.id,
+          resena: item.data().resena,
         });
       });
       this.cargando = false;
-      this.turnos = turnos.filter(x => {
+      this._turnos = turnos.filter(x => {
         return x.paciente.uid == this.loggedUser.uid;
       });
+      this.turnos = this._turnos;
     });
   }
 
@@ -306,11 +270,8 @@ export class MisTurnosComponent implements OnInit {
 
   }
 
-  show(resenaId) {
-    let resena = this.resenas.filter((x) => {
-      return x.id == resenaId;
-    });
-    if (resena.length > 0) {
+  show(resena) {
+    if (resena) {
       this.ref = this.dialogService.open(VerResenaComponent, {
         data: resena,
         header: 'Reseña del profesional',
@@ -369,6 +330,31 @@ export class MisTurnosComponent implements OnInit {
     }
 
 
+  }
+
+  buscar() {
+    if (this.filtro && this.filtro != '') {
+      this.turnos = this._turnos.filter((turno) => {
+        let coincidencia = false;
+        if (turno.resena) {
+          Object.keys(turno.resena).forEach((x) => {
+            if (turno.resena[x].toString().includes(this.filtro)) {
+              coincidencia = true;
+            }
+
+          });
+          return coincidencia || turno.medico.name.toString().includes(this.filtro) ||  turno.paciente.firstName.toString().includes(this.filtro) ||  turno.paciente.lastName.toString().includes(this.filtro);
+        }
+        else
+        {
+          return coincidencia || turno.medico.name.toString().includes(this.filtro) ||  turno.paciente.firstName.toString().includes(this.filtro) ||  turno.paciente.lastName.toString().includes(this.filtro);
+        }
+
+      });
+    }
+    else {
+      this.turnos = this._turnos;;
+    }
   }
 
 }

@@ -100,7 +100,8 @@ export class TurnosComponent implements OnInit {
           fecha: item.data().fecha,
           horario: item.data().horario,
           medico: item.data().medico,
-          paciente: item.data().paciente
+          paciente: item.data().paciente,
+          resena:item.data().resena
         });
       });
       this.estaCargando = false;

@@ -1,20 +1,19 @@
 <app-menu></app-menu>
 
 <div  style="margin-top: 3%;" *ngIf="!cargando && loggedUser" >
-    <p-table [globalFilterFields]="['paciente.lastName','estado']"  [columns]="cols" [value]="turnos" [paginator]="true" [rows]="10"  >
+    <p-table   [columns]="cols" [value]="turnos" [paginator]="true" [rows]="10"  >
       <ng-template pTemplate="caption"  >
         <div class="table-header">
             Lista de turnos
             <span class="p-input-icon-right">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="table.filterGlobal($event.target.value, 'contains')"  />
+                <i class="pi pi-search" (click)="buscar()"></i>
+                <input pInputText type="text" [(ngModel)]="filtro"/>
             </span>
         </div>
     </ng-template>
       <ng-template pTemplate="header" let-columns >
           <tr [ngClass]="{'cabecera': true}" >
               <th  *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}<p-sortIcon [field]="col.field">
-  
               </p-sortIcon>
             </th>
             <th >
@@ -34,7 +33,7 @@
               <button *ngIf="turno.estado == 'Confirmado' && loggedUser.role == 'medico' && validarFecha(turno.fecha)" pButton type="button" icon="pi pi-lock" class="p-button-rounded p-button-success"  pTooltip="Cerrar turno" (click)="CerrarTurno(turno)"></button>
               <button *ngIf="turno.estado == 'Confirmado' || turno.estado == 'Pendiente'" pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"  pTooltip="Cancelar turno" (click)="CancelarTurno(turno)"></button>
 
-              <button *ngIf="turno.estado=='Cerrado'" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-help"  (click)="show(turno.id)" pTooltip="Ver reseña"></button>
+              <button *ngIf="turno.estado=='Cerrado'" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-help"  (click)="show(turno.resena)" pTooltip="Ver reseña"></button>
               <button *ngIf="turno.estado=='Cerrado' && loggedUser.role == 'medico'" pButton type="button" icon="pi pi-info-circle" class="p-button-rounded p-button-info"  (click)="showEncuesta(turno.id)" pTooltip="Ver encuesta"></button>
               <button *ngIf="turno.estado == 'Cerrado' && loggedUser.role == 'paciente'" pButton type="button" icon="pi pi-star" class="p-button-rounded p-button-warning"  pTooltip="Cargar encuesta" (click)="cargarEncuesta(turno)"></button>
 

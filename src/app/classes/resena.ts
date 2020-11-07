@@ -5,27 +5,14 @@ export class Resena {
     public edad;
     public temperatura;
     public presion;
-    public id;
-    public campos = [];
 
-
-    constructor(uidMedico,nombreMedico,nombrePaciente,uidPaciente,edad,temperatura,presion,id,campos)
+    constructor(nombreMedico,nombrePaciente,edad,temperatura,presion)
     {
-        this.medico = {
-            nombre:nombreMedico,
-            uid:uidMedico
-        }
-        this.paciente = {
-            nombre:nombrePaciente,
-            uid:uidPaciente
-        },
+        this.medico = nombreMedico,
+        this.paciente = nombrePaciente,
         this.edad= edad;
         this.temperatura = temperatura,
         this.presion = presion;
-        if(id != null)
-        {
-            this.id = id;
-        }
-        this.campos = campos;
+       
     }
 }

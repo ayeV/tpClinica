@@ -58,18 +58,24 @@ export class FirestoreService {
     });
      
   }
+  updateTurnoResena(id,resena:any) {
+    return this.db.collection('turnos').doc(id).set({
+      resena: this.convertReview(resena),
+    },{merge: true});
+     
+  }
 
   
-  postResena(id,resena: Resena) {
-    return this.db.collection("resenas").doc(id).set({
-      paciente: resena.paciente,
-      medico:resena.medico,
-      temperatura:resena.temperatura,
-      edad:resena.edad,
-      presion:resena.presion,
-      campos:resena.campos
-    });
-     
+  postResena(id,resena: any) {
+    return this.db.collection("resenas").doc(id).set(this.convertReview(resena)); 
+  }
+
+  convertReview(review){
+    let object = {};
+    Object.keys(review).forEach(key=>{
+      object[key] = review[key];
+    })
+    return object;
   }
 
   postEncuesta(id,encuesta: Encuesta) {
@@ -84,11 +90,18 @@ export class FirestoreService {
      
   }
 
-
-
-
-
   
+  postHistorialLogin(data:any) {
+    return this.db.collection("historial").add({
+     usuario: data.usuario,
+     fecha: data.fecha
+    });
+  }
+  
+  getHistorial(){
+    return this.db.collection('historial').get();
+  }
+
   uploadFile(dataUrl) {
     var fileName = `${new Date().getTime()}photo`;
     var ref = firebase.storage().ref().child("pacientes/" + fileName);

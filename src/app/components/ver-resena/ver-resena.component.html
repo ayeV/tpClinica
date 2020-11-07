@@ -1,12 +1,7 @@
 <div *ngIf="data">
-    <h2 style="color: blue;">Paciente: {{data.paciente.nombre}}</h2>
-    <h2 style="color: blue;">Medico: {{data.medico.nombre}}</h2>
-    <p style="color:green">Temperatura: {{data.temperatura}}</p>
-    <p style="color: green;">Presion arterial: {{data.presion}}</p>
-    <p style="color: green;">Edad: {{data.edad}} años</p>
-    <div *ngFor="let item of data.campos">
-        <p>{{item.clave}} : {{item.valor}}</p>
-    </div>
+     <div *ngFor="let item of keys">
+        <p class="text">{{item}} : {{data[item]}}</p>
+    </div> 
     <button mat-raised-button color="primary" (click)="generatePdf()">
         Descargar pdf
     </button>

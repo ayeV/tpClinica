@@ -13,12 +13,15 @@ export class VerResenaComponent implements OnInit {
   @ViewChild('htmlData') htmlData: ElementRef;
   public pdfMake:any;
   public data: any;
+  public keys = [];
+
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
-    console.log(this.config.data);
   }
 
   ngOnInit(): void {
-    this.data = this.config.data[0];
+    this.data = this.config.data;
+    this.keys = Object.keys(this.config.data);
+    console.log(this.keys);
   }
 
   async loadPdfMaker() {
@@ -40,13 +43,11 @@ export class VerResenaComponent implements OnInit {
   setLista()
   {
     let lista = [];
-    lista.push( `Edad: ${this.data.edad}`);
-    lista.push(`Temperatura: ${this.data.temperatura}`);
-    lista.push(`Presion arterial: ${this.data.presion}`);
-    if(this.data.campos)
+    
+    if(this.keys)
     {
-      for (let i = 0; i < this.data.campos.length; i++) {
-        lista.push(this.data.campos[i].clave + ": " + this.data.campos[i].valor);
+      for (let i = 0; i < this.keys.length; i++) {
+        lista.push(this.keys[i] + ": " + this.data[this.keys[i]]);
       }
     }
    
@@ -55,7 +56,7 @@ export class VerResenaComponent implements OnInit {
 
   getDocumentDefinition() {
     return {
-      header: `Reseña realizada por el Profesional ${this.data.medico.nombre} para el paciente: ${this.data.paciente.nombre}`,
+      header: `Reseña realizada por el Profesional ${this.data.medico} para el paciente: ${this.data.paciente}`,
       content: ['Datos: ', {
         ul: this.setLista()
       }],

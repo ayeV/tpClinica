@@ -65,9 +65,10 @@ export class CargarResenaComponent implements OnInit {
     this.messageService.clear();
     if(this.presion != null && this.temperatura != null && this.edad != null)
     {
-       let resena = new Resena(this.turno.medico.uid,this.turno.medico.name,this.turno.paciente.firstName +' '+ this.turno.paciente.lastName,this.turno.paciente.uid,
-        this.edad,this.temperatura,this.presion,this.turno.id,this.lista);
-        this.db.postResena(this.turno.id,resena).then((x)=>
+       let resena = new Resena(this.turno.medico.name,this.turno.paciente.firstName +' '+ this.turno.paciente.lastName,
+        this.edad,this.temperatura,this.presion);
+        this.algo2(resena);
+        this.db.updateTurnoResena(this.turno.id,resena).then((x)=>
         {
           this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Se ha guardado correctamente.' });
           this.edad = null;
@@ -86,6 +87,13 @@ export class CargarResenaComponent implements OnInit {
 
     }
 
+  }
+
+  algo2(resena)
+  {
+    for (let i = 0; i < this.lista.length; i++) {
+        resena[this.lista[i].clave] = this.lista[i].valor;
+    }
   }
 
 }

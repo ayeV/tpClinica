@@ -44,16 +44,29 @@ export class LoginComponent implements OnInit {
         this.authService.SignIn(this.user.email, this.user.password).then((res) => {
           this.db.getLoggedUser(this.authService.userLoggedIn.uid).subscribe((data) => {
             let user: any = data.payload.data();
+            debugger;
             if (user.role != 'admin') {
               if (this.authService.userLoggedIn.emailVerified) {
+                if(user.role == 'medico')
+                {
+                  let data = {
+                    usuario: user,
+                    fecha: new Date(Date.now())
+                  }
+  
+                  this.db.postHistorialLogin(data).then((x)=>{
+                    this.router.navigate(['']);
+                  });
+                }
                 this.router.navigate(['']);
               }
               else {
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Debes verificar tu email para poder iniciar sesión.' });
   
               }
+         
             }
-            else {
+            else{
               this.router.navigate(['']);
   
             }
