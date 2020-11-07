@@ -1,7 +1,6 @@
 <body>
   <div *ngIf="!loggedUser">
     <p-progressSpinner class="spinner">Por favor espere...</p-progressSpinner>
-
   </div>
   <header *ngIf="loggedUser">
 
@@ -40,11 +39,9 @@
     </nav>
   </header>
 
-  <main role="main" *ngIf="loggedUser">
+  <main role="main"  *ngIf="loggedUser">
 
-
-
-    <div id="myCarousel" data-ride="carousel">
+    <div id="myCarousel"  data-ride="carousel">
 
       <div class="carousel-inner clase1">
         <div class="carousel-item active">
@@ -102,12 +99,16 @@
 
         </div>
       </div>
+      <div class="row featurette" *ngIf="loggedUser.role == 'admin'">
+        <div class="col-md-7">
+          <h1 [routerLink]="['/GraficoBarra']" routerLinkActive="router-link-active" class="class2">Ver gráficos estadísticos</h1>
+        </div>
+        <div class="col-md-7">
+          <h1 class="class2" (click)="crearInformes()">Descargar informes</h1>
+        </div>
+      </div>
 
       <hr class="featurette-divider">
-
-
-
-      <!-- /END THE FEATURETTES -->
 
     </div><!-- /.container -->
 

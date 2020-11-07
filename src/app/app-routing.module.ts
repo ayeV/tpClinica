@@ -6,6 +6,7 @@ import { AltaAdminComponent } from './components/alta-admin/alta-admin.component
 import { CargarEncuestaComponent } from './components/cargar-encuesta/cargar-encuesta.component';
 import { CargarResenaComponent } from './components/cargar-resena/cargar-resena.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import { GraficoBarraComponent } from './components/grafico-barra/grafico-barra.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MisDatosComponent } from './components/mis-datos/mis-datos.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'MisHorarios', component: AdminMedicoComponent,canActivate: [AuthGuard]},
   { path: 'CargarResena', component: CargarResenaComponent,canActivate: [AuthGuard]},
   { path: 'CargarEncuesta', component: CargarEncuestaComponent,canActivate: [AuthGuard]},
+  { path: 'GraficoBarra', component: GraficoBarraComponent,canActivate: [AuthGuard]},
 
 
 ];

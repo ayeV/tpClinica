@@ -69,10 +69,11 @@ import {RatingModule} from 'primeng/rating';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CaptchaModule} from 'primeng/captcha';
-
-
+import {  ChartModule } from 'primeng/chart';
+import 'chart.js/dist/Chart.min.js';
 import {MatStepperModule} from '@angular/material/stepper'; 
 import {StepsModule} from 'primeng/steps';
+import { GraficoBarraComponent } from './components/grafico-barra/grafico-barra.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import {StepsModule} from 'primeng/steps';
     CargarResenaComponent,
     VerResenaComponent,
     CargarEncuestaComponent,
-    VerEncuestaComponent
+    VerEncuestaComponent,
+    GraficoBarraComponent
   ],
   imports: [
     StepsModule,
@@ -148,6 +150,7 @@ import {StepsModule} from 'primeng/steps';
     AngularFirestoreModule,
     MatExpansionModule,
     MatDialogModule,
+    ChartModule,
     MatStepperModule
   ],
   providers: [DialogService,DynamicDialogRef,DynamicDialogConfig,MessageService,
