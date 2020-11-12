@@ -343,11 +343,13 @@ export class MisTurnosComponent implements OnInit {
             }
 
           });
-          return coincidencia || turno.medico.name.toString().includes(this.filtro) ||  turno.paciente.firstName.toString().includes(this.filtro) ||  turno.paciente.lastName.toString().includes(this.filtro);
+          let fullName = turno.paciente.firstName + " " + turno.paciente.lastName
+          return coincidencia || turno.medico.name.toString().includes(this.filtro) ||  turno.paciente.firstName.toString().includes(this.filtro) ||  turno.paciente.lastName.toString().includes(this.filtro) || fullName.toString().includes(this.filtro);
         }
         else
         {
-          return coincidencia || turno.medico.name.toString().includes(this.filtro) ||  turno.paciente.firstName.toString().includes(this.filtro) ||  turno.paciente.lastName.toString().includes(this.filtro);
+          let fullName = turno.paciente.firstName + " " + turno.paciente.lastName
+          return coincidencia || turno.medico.name.toString().includes(this.filtro) ||  turno.paciente.firstName.toString().includes(this.filtro) ||  turno.paciente.lastName.toString().includes(this.filtro) || fullName.toString().includes(this.filtro);
         }
 
       });
