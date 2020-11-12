@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule,LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
-
+import localeEsAr from '@angular/common/locales/es-AR';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -75,6 +75,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {StepsModule} from 'primeng/steps';
 import { GraficoBarraComponent } from './components/grafico-barra/grafico-barra.component';
 
+registerLocaleData(localeEsAr, 'es-Ar');
 @NgModule({
   declarations: [
     
@@ -154,7 +155,7 @@ import { GraficoBarraComponent } from './components/grafico-barra/grafico-barra.
     MatStepperModule
   ],
   providers: [DialogService,DynamicDialogRef,DynamicDialogConfig,MessageService,
-    {provide: MAT_DATE_LOCALE, useValue: 'es'},],
+    {provide: MAT_DATE_LOCALE, useValue: 'es'},{ provide: LOCALE_ID, useValue: 'es-Ar'}],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -50,10 +50,9 @@ export class CargarResenaComponent implements OnInit {
   AgregarCampo()
   {
     this.lista.push({
-      clave:'',
-      valor:''
+      'clave':'',
+      'valor':''
     });
-
   }
   eliminarCampo(i)
   {

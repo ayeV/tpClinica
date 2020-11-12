@@ -28,19 +28,19 @@
                             [(ngModel)]="presion" name="presion" required>
                     </mat-form-field>
 
-                   <p-button label="Agregar campo" icon="pi pi-plus" (click)="AgregarCampo()" *ngIf="lista.length<3"></p-button>
+                    <p-button label="Agregar campo" icon="pi pi-plus" (click)="AgregarCampo()" *ngIf="lista.length<3">
+                    </p-button>
                     <div *ngFor="let campo of lista; let i = index">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field>
                             <input type="text" matInput placeholder="Nombre" name="clave" [(ngModel)]="campo.clave">
-
                         </mat-form-field>
-                        <mat-form-field class="example-full-width" >
+                        <mat-form-field >
                             <input type="text" matInput placeholder="Valor" name="valor" [(ngModel)]="campo.valor">
                         </mat-form-field>
                         <button mat-icon-button color="warn" (click)="eliminarCampo(i)">
                             <mat-icon>delete</mat-icon>
-                          </button>
-                    </div> 
+                        </button>
+                    </div>
 
 
                 </mat-card-content>

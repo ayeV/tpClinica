@@ -26,7 +26,7 @@
             <td>{{turno.paciente.firstName}} {{turno.paciente.lastName}}</td>
             <td>{{turno.medico.name}}</td>
             <td>{{turno.estado}}</td>
-            <td>{{turno.fecha}}</td>
+            <td>{{turno.fecha | date}} </td>
             <td>{{turno.horario}}</td>
             <td style="text-align: center">
               <button *ngIf="turno.estado == 'Pendiente' && loggedUser.role == 'medico'" pButton type="button" icon="pi pi-check" class="p-button-raised p-button-rounded"   pTooltip="Confirmar turno" (click)="AceptarTurno(turno)"></button>
