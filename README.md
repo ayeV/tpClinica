@@ -10,6 +10,10 @@ Tendrá una sección para administrar usuarios:
 En dicha sección tendra una lista de médicos para poder aceptar o rechazar en el sistema, ademas podra dar de alta otros administradores.
 ![s6](https://github.com/ayeV/tpClinica/blob/main/screenshots/s6.png)
 ![s7](https://github.com/ayeV/tpClinica/blob/main/screenshots/s7.png)
+Seccion de informes
+![s10](https://github.com/ayeV/tpClinica/blob/main/screenshots/s10.png)
+![s11](https://github.com/ayeV/tpClinica/blob/main/screenshots/s11.png)
+
 
 
 
