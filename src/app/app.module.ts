@@ -74,11 +74,13 @@ import 'chart.js/dist/Chart.min.js';
 import {MatStepperModule} from '@angular/material/stepper'; 
 import {StepsModule} from 'primeng/steps';
 import { GraficoBarraComponent } from './components/grafico-barra/grafico-barra.component';
+import { EstadoDirective } from './estado.directive';
+import {HorarioPipe} from './../app/pipes/horario-pipe';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 @NgModule({
   declarations: [
-    
+    HorarioPipe,
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -96,7 +98,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     VerResenaComponent,
     CargarEncuestaComponent,
     VerEncuestaComponent,
-    GraficoBarraComponent
+    GraficoBarraComponent,
+    EstadoDirective
   ],
   imports: [
     StepsModule,

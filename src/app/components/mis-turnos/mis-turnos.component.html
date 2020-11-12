@@ -25,9 +25,9 @@
           <tr [ngClass]="{'fila': true}">
             <td>{{turno.paciente.firstName}} {{turno.paciente.lastName}}</td>
             <td>{{turno.medico.name}}</td>
-            <td>{{turno.estado}}</td>
+            <td appEstado [estado]="turno.estado" >{{turno.estado}}</td>
             <td>{{turno.fecha | date}} </td>
-            <td>{{turno.horario}}</td>
+            <td>{{turno.horario | horarioPipe:turno.horario}}</td>
             <td style="text-align: center">
               <button *ngIf="turno.estado == 'Pendiente' && loggedUser.role == 'medico'" pButton type="button" icon="pi pi-check" class="p-button-raised p-button-rounded"   pTooltip="Confirmar turno" (click)="AceptarTurno(turno)"></button>
               <button *ngIf="turno.estado == 'Confirmado' && loggedUser.role == 'medico' && validarFecha(turno.fecha)" pButton type="button" icon="pi pi-lock" class="p-button-rounded p-button-success"  pTooltip="Cerrar turno" (click)="CerrarTurno(turno)"></button>
@@ -36,8 +36,6 @@
               <button *ngIf="turno.estado=='Cerrado'" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-help"  (click)="show(turno.resena)" pTooltip="Ver reseña"></button>
               <button *ngIf="turno.estado=='Cerrado' && loggedUser.role == 'medico'" pButton type="button" icon="pi pi-info-circle" class="p-button-rounded p-button-info"  (click)="showEncuesta(turno.id)" pTooltip="Ver encuesta"></button>
               <button *ngIf="turno.estado == 'Cerrado' && loggedUser.role == 'paciente'" pButton type="button" icon="pi pi-star" class="p-button-rounded p-button-warning"  pTooltip="Cargar encuesta" (click)="cargarEncuesta(turno)"></button>
-
-
           </td>
           </tr>
       </ng-template>
